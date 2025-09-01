@@ -41,6 +41,11 @@ export default function Navbar() {
               <ul className="dropdown-menu">
                 <li><Link className="dropdown-item" to="/services/duct-cleaning">Air Duct Cleaning</Link></li>
                 <li><Link className="dropdown-item" to="/services/dryer-vent">Dryer Vent Cleaning</Link></li>
+                <li><Link className="dropdown-item" to="/services/supply-vent-cleaning">Supply Vent Cleaning</Link></li>
+                <li><Link className="dropdown-item" to="/services/negative-pressure-machine">Negative Pressure Machine</Link></li>
+                <li><Link className="dropdown-item" to="/services/brush-cleaning">Brush Cleaning</Link></li>
+                <li><Link className="dropdown-item" to="/services/deep-cleaning">Deep Cleaning</Link></li>
+                <li><Link className="dropdown-item" to="/services/chimney-cleaning">Chimney Cleaning </Link></li>
                 <li><Link className="dropdown-item" to="/services/hvac">HVAC System Cleaning</Link></li>
                 <li><hr className="dropdown-divider"/></li>
                 <li><Link className="dropdown-item" to="/services">All Services</Link></li>
