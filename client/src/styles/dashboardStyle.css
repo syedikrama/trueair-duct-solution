@@ -1,0 +1,322 @@
+        .admin-dashboard {
+          min-height: 100vh;
+          background: #f8f9fa;
+        }
+        
+        .dashboard-header {
+          background: linear-gradient(135deg, #2c6b9e 0%, #1a4a75 100%);
+          color: white;
+          padding: 2rem 0;
+        }
+        
+        .dashboard-header h1 {
+          margin: 0;
+          font-weight: 700;
+        }
+        
+        .dashboard-header p {
+          margin: 0.5rem 0 0 0;
+          opacity: 0.9;
+        }
+        
+        .dashboard-tabs {
+          background: white;
+          border-bottom: 1px solid #e9ecef;
+        }
+        
+        .tabs {
+          display: flex;
+          gap: 0;
+        }
+        
+        .tabs button {
+          padding: 1rem 2rem;
+          border: none;
+          background: none;
+          color: #6c757d;
+          cursor: pointer;
+          border-bottom: 3px solid transparent;
+          transition: all 0.3s ease;
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+        }
+        
+        .tabs button:hover {
+          color: #2c6b9e;
+        }
+        
+        .tabs button.active {
+          color: #2c6b9e;
+          border-bottom-color: #2c6b9e;
+          background: #f8f9fa;
+        }
+        
+        .dashboard-content {
+          padding: 2rem 0;
+        }
+        
+        .stats-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+          gap: 1.5rem;
+          margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+          background: white;
+          padding: 1.5rem;
+          border-radius: 15px;
+          box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+        }
+        
+        .stat-icon {
+          width: 60px;
+          height: 60px;
+          border-radius: 15px;
+          background: linear-gradient(135deg, #2c6b9e 0%, #1a4a75 100%);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: white;
+          font-size: 1.5rem;
+        }
+        
+        .stat-icon.pending {
+          background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%);
+        }
+        
+        .stat-icon.completed {
+          background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+        }
+        
+        .stat-icon.revenue {
+          background: linear-gradient(135deg, #ff6b00 0%, #e55e00 100%);
+        }
+        
+        .stat-info h3 {
+          margin: 0;
+          font-size: 2rem;
+          font-weight: 700;
+          color: #2c6b9e;
+        }
+        
+        .stat-info p {
+          margin: 0.25rem 0 0 0;
+          color: #6c757d;
+        }
+        
+        .recent-bookings {
+          background: white;
+          border-radius: 15px;
+          padding: 1.5rem;
+          box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+          margin-bottom: 2rem;
+        }
+        
+        .section-header {
+          display: flex;
+          justify-content: between;
+          align-items: center;
+          margin-bottom: 1.5rem;
+        }
+        
+        .section-header h2 {
+          margin: 0;
+          color: #2c6b9e;
+        }
+        
+        .view-all {
+          color: #ff6b00;
+          text-decoration: none;
+          font-weight: 600;
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+        }
+        
+        .bookings-table {
+          overflow-x: auto;
+        }
+        
+        .bookings-table table {
+          width: 100%;
+          border-collapse: collapse;
+        }
+        
+        .bookings-table th {
+          background: #f8f9fa;
+          padding: 1rem;
+          text-align: left;
+          font-weight: 600;
+          color: #2c6b9e;
+          border-bottom: 2px solid #e9ecef;
+        }
+        
+        .bookings-table td {
+          padding: 1rem;
+          border-bottom: 1px solid #e9ecef;
+        }
+        
+        .bookings-table tr:hover {
+          background: #f8f9fa;
+        }
+        
+        .customer-name {
+          font-weight: 600;
+          color: #2c6b9e;
+        }
+        
+        .datetime {
+          color: #6c757d;
+        }
+        
+        .time {
+          font-size: 0.9rem;
+          color: #999;
+        }
+        
+        .status-badge {
+          padding: 0.25rem 0.75rem;
+          border-radius: 20px;
+          font-size: 0.8rem;
+          font-weight: 600;
+        }
+        
+        .status-pending {
+          background: #fff3cd;
+          color: #856404;
+        }
+        
+        .status-confirmed {
+          background: #d1ecf1;
+          color: #0c5460;
+        }
+        
+        .status-completed {
+          background: #d4edda;
+          color: #155724;
+        }
+        
+        .status-cancelled {
+          background: #f8d7da;
+          color: #721c24;
+        }
+        
+        .action-buttons {
+          display: flex;
+          gap: 0.5rem;
+        }
+        
+        .btn-view, .btn-edit {
+          padding: 0.5rem;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          transition: all 0.3s ease;
+        }
+        
+        .btn-view {
+          background: #e3f2fd;
+          color: #1976d2;
+        }
+        
+        .btn-edit {
+          background: #fff3e0;
+          color: #f57c00;
+        }
+        
+        .btn-view:hover, .btn-edit:hover {
+          transform: translateY(-2px);
+        }
+        
+        .quick-actions {
+          background: white;
+          border-radius: 15px;
+          padding: 1.5rem;
+          box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        
+        .quick-actions h2 {
+          margin: 0 0 1.5rem 0;
+          color: #2c6b9e;
+        }
+        
+        .action-buttons-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+          gap: 1rem;
+        }
+        
+        .action-btn {
+          padding: 1.5rem;
+          border: 2px dashed #dee2e6;
+          border-radius: 15px;
+          background: #f8f9fa;
+          color: #6c757d;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 0.5rem;
+        }
+        
+        .action-btn:hover {
+          border-color: #2c6b9e;
+          color: #2c6b9e;
+          transform: translateY(-2px);
+        }
+        
+        .action-btn i {
+          font-size: 1.5rem;
+        }
+        
+        .action-btn span {
+          font-weight: 600;
+        }
+        
+        .dashboard-loading {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          height: 50vh;
+        }
+        
+        .spinner {
+          width: 40px;
+          height: 40px;
+          border: 4px solid #f3f3f3;
+          border-top: 4px solid #2c6b9e;
+          border-radius: 50%;
+          animation: spin 1s linear infinite;
+          margin-bottom: 1rem;
+        }
+        
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+        
+        @media (max-width: 768px) {
+          .tabs {
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+          }
+          
+          .stats-grid {
+            grid-template-columns: 1fr;
+          }
+          
+          .bookings-table {
+            font-size: 0.9rem;
+          }
+          
+          .action-buttons-grid {
+            grid-template-columns: 1fr;
+          }
+        }

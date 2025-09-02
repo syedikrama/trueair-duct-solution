@@ -10,6 +10,10 @@ import Services from './pages/Services';
 import About from './pages/About';
 import Footer from './Components/Footer';
 import Gallery from './pages/Gallery';
+import ServiceDetails from './pages/ServiceDetails';
+import BookingPage from './pages/BookingPage';
+import ThankYou from './pages/ThankYou';
+import Dashboard from './pages/Dashboard';
 
 function App() {
   return (
@@ -23,6 +27,12 @@ function App() {
         <Route path="/services" element={<Services />} />
         <Route path="/about" element={<About />} />
         <Route path="/gallery" element={<Gallery />} />
+          <Route path="/services/:serviceId" element={<ServiceDetails />} />
+          <Route path="/booking/:serviceId?" element={<BookingPage />} />
+          <Route path="/thank-you" element={<ThankYou />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+
+
 
 
 
