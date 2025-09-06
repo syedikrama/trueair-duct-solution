@@ -60,6 +60,22 @@ const bookingSchema = new mongoose.Schema({
   },
   comment: {
     type: String, // agar customer note dena chahe
+  },
+  estimatedPrice: {
+    type: Number,
+    default: 0
+  },
+  originalPrice: {
+    type: Number,
+    default: 0
+  },
+  discountAmount: {
+    type: Number,
+    default: 0
+  },
+  unitCount: {
+    type: Number,
+    default: 1
   }
 }, {
   timestamps: true,

@@ -137,6 +137,58 @@
   font-weight: 500;
 }
 
+
+.price-display-card {
+          background: #f8f9fa;
+          padding: 1.5rem;
+          border-radius: 10px;
+          border: 2px dashed #dee2e6;
+          margin: 1rem 0;
+        }
+        
+        .price-breakdown {
+          margin-bottom: 1rem;
+        }
+        
+        .price-row {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 0.5rem;
+          padding: 0.25rem 0;
+        }
+        
+        .price-row.discount {
+          color: #28a745;
+          font-weight: 600;
+        }
+        
+        .price-row.total {
+          border-top: 2px solid #dee2e6;
+          padding-top: 0.75rem;
+          margin-top: 0.5rem;
+          font-size: 1.2rem;
+        }
+        
+        .discount-badge {
+          background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+          color: white;
+          padding: 0.5rem 1rem;
+          border-radius: 20px;
+          font-weight: 600;
+          text-align: center;
+          margin-top: 1rem;
+        }
+        
+        .discount-badge i {
+          margin-right: 0.5rem;
+        }
+        
+        @media (max-width: 768px) {
+          .price-row {
+            flex-direction: column;
+            text-align: center;
+          }
+        }
         
         @media (max-width: 768px) {
           .booking-page {

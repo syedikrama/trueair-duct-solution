@@ -18,7 +18,9 @@ export default function Navbar() {
       <nav className="navbar navbar-expand-lg navbar-dark custom-navbar">
         <div className="container">
           <Link className="navbar-brand" to="/">
-            <i className="fas fa-wind me-2"></i>
+            {/* <i className="fas fa-home me-2"></i> */}
+            {/* <i class="fa-solid fa-house-chimney me-2"></i> */}
+            <i class="fa-regular fa-house"></i>
             TrueAir Duct Solutions
           </Link>
 

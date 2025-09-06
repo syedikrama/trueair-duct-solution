@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import "../styles/bookingPageStyle.css";
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 export default function BookingPage() {
   const { serviceId } = useParams();
@@ -16,12 +18,18 @@ export default function BookingPage() {
     zip: '',
     furnaceOrUnit: '',
     serviceType: serviceId || '',
+    unitCount: 1,
     cleaningDate: '',
     cleaningTime: '',
     comment: ''
   });
 
   const [loading, setLoading] = useState(false);
+  const [servicePrices, setServicePrices] = useState({});
+  const [calculatedPrice, setCalculatedPrice] = useState(0);
+  const [originalPrice, setOriginalPrice] = useState(0);
+  const [discount, setDiscount] = useState(0);
+  const [minDate, setMinDate] = useState('');
 
   const services = {
     'air-duct-cleaning': 'Air Duct Cleaning',
@@ -32,6 +40,14 @@ export default function BookingPage() {
     'deep-cleaning': 'Deep Cleaning',
     'chimney-cleaning': 'Chimney Cleaning',
     'hvac-system-cleaning': 'HVAC System Cleaning'
+  };
+
+  // Discount structure: { unitCount: discountPercentage }
+  const discountTiers = {
+    1: 0,    // No discount for 1 unit
+    2: 25,   // 25% discount for 2 units
+    3: 30,   // 30% discount for 3 units
+    4: 35,   // 35% discount for 4+ units
   };
 
   const timeSlots = [
@@ -52,29 +68,134 @@ export default function BookingPage() {
     'West Virginia', 'Wisconsin', 'Wyoming'
   ];
 
-  const handleChange = (e) => {
+  // Calculate minimum date (tomorrow)
+  useEffect(() => {
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1); // Add 1 day
+    setMinDate(tomorrow.toISOString().split('T')[0]);
+  }, []);
+
+  // Saturday disable karne ke liye function
+  const isSaturdayDisabled = (dateString) => {
+    const [year, month, day] = dateString.split('-').map(Number);
+    const date = new Date(year, month - 1, day); // Month 0-indexed
+    return date.getDay() === 6; // Saturday
+  };
+
+
+
+  // Calculate price based on unit count
+  const calculatePrice = (basePrice, units) => {
+    const unitCount = Math.max(1, Math.min(10, Number(units)));
+    let discountPercentage = discountTiers[unitCount];
+
+    if (discountPercentage === undefined) {
+      discountPercentage = unitCount >= 4 ? discountTiers[4] : 0;
+    }
+
+    const totalBasePrice = basePrice * unitCount;
+    const discountAmount = (totalBasePrice * discountPercentage) / 100;
+    const finalPrice = totalBasePrice - discountAmount;
+
+    return {
+      original: totalBasePrice,
+      discounted: finalPrice,
+      discount: discountAmount,
+      unitCount: unitCount,
+      discountPercent: discountPercentage
+    };
+  };
+
+  useEffect(() => {
+    const fetchServicePrices = async () => {
+      try {
+        const fixedPrices = {
+          'air-duct-cleaning': 199,
+          'dryer-vent-cleaning': 99,
+          'supply-vent-cleaning': 149,
+          'negative-pressure-machine': 249,
+          'brush-cleaning': 179,
+          'deep-cleaning': 299,
+          'chimney-cleaning': 199,
+          'hvac-system-cleaning': 349
+        };
+        setServicePrices(fixedPrices);
+      } catch (error) {
+        console.error('Error fetching prices:', error);
+      }
+    };
+
+    fetchServicePrices();
+  }, []);
+
+  // Update price when service type or unit count changes
+  useEffect(() => {
+    if (formData.serviceType && servicePrices[formData.serviceType]) {
+      const basePrice = servicePrices[formData.serviceType];
+      const calculation = calculatePrice(basePrice, formData.unitCount);
+
+      setCalculatedPrice(calculation.discounted);
+      setOriginalPrice(calculation.original);
+      setDiscount(calculation.discount);
+    }
+  }, [formData.serviceType, formData.unitCount, servicePrices]);
+
+  // Date input ke liye custom handler
+  const handleDateChange = (e) => {
+    const selectedDate = e.target.value;
+
+    if (isSaturdayDisabled(selectedDate)) {
+      alert('Sorry, we are closed on Saturdays. Please choose another day.');
+      setFormData({
+        ...formData,
+        cleaningDate: '' // Clear the selected date
+      });
+      return;
+    }
+
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      cleaningDate: selectedDate
+    });
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: name === 'unitCount' ? parseInt(value, 10) || 1 : value
     });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Saturday check on submission
+    if (formData.cleaningDate && isSaturdayDisabled(formData.cleaningDate)) {
+      alert('Sorry, we are closed on Saturdays. Please choose another day.');
+      return;
+    }
+
     setLoading(true);
-    
+
     try {
+      const bookingData = {
+        ...formData,
+        estimatedPrice: calculatedPrice,
+        originalPrice: originalPrice,
+        discountAmount: discount,
+        unitCount: formData.unitCount
+      };
+
       const response = await fetch('http://localhost:3001/api/bookings', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(bookingData)
       });
 
       if (response.ok) {
-        const result = await response.json();
-        alert('Booking submitted successfully! We will contact you soon.');
         navigate('/thank-you');
       } else {
         throw new Error('Failed to submit booking');
@@ -92,15 +213,14 @@ export default function BookingPage() {
       <div className="container">
         <div className="row">
           <div className="col-lg-10 mx-auto">
-            {/* Header */}
             <div className="booking-header text-center">
               <h1>Schedule Your Service</h1>
               <p>Complete the form below to book your {services[serviceId] || 'cleaning'} service</p>
             </div>
 
-            {/* Booking Form */}
             <div className="booking-form-container">
               <form onSubmit={handleSubmit} className="booking-form">
+
                 {/* Personal Information */}
                 <div className="form-section">
                   <h4>Personal Information</h4>
@@ -259,18 +379,93 @@ export default function BookingPage() {
                     </div>
                   </div>
 
+                  {/* Unit Count Selection */}
+                  <div className="row">
+                    <div className="col-md-6">
+                      <div className="form-group">
+                        <label>Number of Units *</label>
+                        <select
+                          name="unitCount"
+                          value={formData.unitCount}
+                          onChange={handleChange}
+                          required
+                        >
+                          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(num => (
+                            <option key={num} value={num}>
+                              {num} Unit{num > 1 ? 's' : ''}
+                            </option>
+                          ))}
+                        </select>
+                        <small>Select the number of units needing service</small>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Dynamic Price Display */}
+                  {formData.serviceType && servicePrices[formData.serviceType] && (
+                    <div className="price-display-card">
+                      <div className="price-breakdown">
+                        <div className="price-row">
+                          <span>Base Price ({formData.unitCount} unit{formData.unitCount > 1 ? 's' : ''}):</span>
+                          <span>${originalPrice.toFixed(2)}</span>
+                        </div>
+
+                        {discount > 0 && (
+                          <div className="price-row discount">
+                            <span>Discount ({discountTiers[formData.unitCount]}%):</span>
+                            <span>-${discount.toFixed(2)}</span>
+                          </div>
+                        )}
+
+                        <div className="price-row total">
+                          <span><strong>Total Price:</strong></span>
+                          <span><strong>${calculatedPrice.toFixed(2)}</strong></span>
+                        </div>
+                      </div>
+
+                      {discount > 0 && (
+                        <div className="discount-badge">
+                          <i className="fas fa-tag"></i>
+                          You save ${discount.toFixed(2)}!
+                        </div>
+                      )}
+                    </div>
+                  )}
+
                   <div className="row">
                     <div className="col-md-6">
                       <div className="form-group">
                         <label>Preferred Cleaning Date *</label>
-                        <input
+                        {/* <input
                           type="date"
                           name="cleaningDate"
                           value={formData.cleaningDate}
-                          onChange={handleChange}
+                          onChange={handleDateChange} // ✅ Custom handler for Saturday check
                           required
-                          min={new Date().toISOString().split('T')[0]}
+                          min={minDate}
+                          placeholder="Select date"
+                        /> */}
+
+                        <DatePicker
+                          selected={formData.cleaningDate ? new Date(formData.cleaningDate) : null}
+                          onChange={(date) => {
+                            setFormData({
+                              ...formData,
+                              cleaningDate: date ? date.toISOString().split('T')[0] : ''
+                            });
+                          }}
+                          minDate={new Date(new Date().setDate(new Date().getDate() + 1))}
+                          filterDate={(date) => date.getDay() !== 6}
+                          placeholderText="Select date (Monday-Friday only)"
+                          dateFormat="yyyy-MM-dd"
+                          required
+                          className="custom-datepicker form-control"
+                          isClearable
+                          wrapperClassName="datepicker-wrapper"
                         />
+                        <small className="date-note">
+                          * Service can be booked starting from tomorrow (Saturdays closed)
+                        </small>
                       </div>
                     </div>
                     <div className="col-md-6">
@@ -281,6 +476,8 @@ export default function BookingPage() {
                           value={formData.cleaningTime}
                           onChange={handleChange}
                           required
+                           
+                           wrapperClassName="datepicker-wrapper"
                         >
                           <option value="">Select Time</option>
                           {timeSlots.map(time => (
@@ -307,8 +504,8 @@ export default function BookingPage() {
                   </div>
                 </div>
 
-                <button 
-                  type="submit" 
+                <button
+                  type="submit"
                   className="btn btn-primary btn-book"
                   disabled={loading}
                 >
@@ -343,13 +540,105 @@ export default function BookingPage() {
                 </div>
                 <div className="contact-item">
                   <i className="fas fa-clock"></i>
-                  <span>Available: Mon-Sat, 8:00 AM - 8:00 PM</span>
+                  <span>Available: Mon-Fri, 8:00 AM - 8:00 PM</span>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      <style jsx>{`
+        .price-display-card {
+          background: #f8f9fa;
+          padding: 1.5rem;
+          border-radius: 10px;
+          border: 2px dashed #dee2e6;
+          margin: 1rem 0;
+        }
+        
+        .price-breakdown {
+          margin-bottom: 1rem;
+        }
+        
+        .price-row {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 0.5rem;
+          padding: 0.25rem 0;
+        }
+        
+        .price-row.discount {
+          color: #28a745;
+          font-weight: 600;
+        }
+        
+        .price-row.total {
+          border-top: 2px solid #dee2e6;
+          padding-top: 0.75rem;
+          margin-top: 0.5rem;
+          font-size: 1.2rem;
+        }
+        
+        .discount-badge {
+          background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+          color: white;
+          padding: 0.5rem 1rem;
+          border-radius: 20px;
+          font-weight: 600;
+          text-align: center;
+          margin-top: 1rem;
+        }
+        
+        .discount-badge i {
+          margin-right: 0.5rem;
+        }
+        
+        .date-note {
+          color: #6c757d;
+          font-style: italic;
+          margin-top: 0.5rem;
+          display: block;
+        }
+          /* Custom styling for DatePicker */
+  .datepicker-wrapper {
+    width: 100%;
+  }
+  
+  .custom-datepicker {
+    height: 48px !important; /* ✅ Height increase karo */
+    font-size: 16px !important;
+    padding: 0.75rem 1rem !important;
+  }
+  
+  /* React DatePicker ki default styling improve karo */
+  .react-datepicker-wrapper {
+    width: 100%;
+  }
+  
+  .react-datepicker__input-container input {
+    width: 100%;
+    height: 48px;
+    padding: 0.75rem 1rem;
+    font-size: 16px;
+    border: 1px solid #ced4da;
+    border-radius: 0.375rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  }
+  
+  .react-datepicker__input-container input:focus {
+    border-color: #86b7fe;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+  }
+        
+        @media (max-width: 768px) {
+          .price-row {
+            flex-direction: column;
+            text-align: center;
+          }
+        }
+      `}</style>
     </div>
   );
 }

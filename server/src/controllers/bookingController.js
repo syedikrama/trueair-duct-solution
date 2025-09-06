@@ -20,7 +20,11 @@ const bookingController = {
         serviceType,
         cleaningDate,
         cleaningTime,
-        comment
+        comment,
+        estimatedPrice,
+        originalPrice,
+        discountAmount,
+        unitCount
       } = req.body;
 
       if (!firstName || !lastName || !email || !contactNumber || !homeAddress || !city || !state || !zip || !furnaceOrUnit || !serviceType || !cleaningDate || !cleaningTime) {
@@ -41,7 +45,11 @@ const bookingController = {
         serviceType,
         cleaningDate,
         cleaningTime,
-        comment
+        comment,
+        estimatedPrice: estimatedPrice || 0,
+        originalPrice: originalPrice || 0,
+        discountAmount: discountAmount || 0,
+        unitCount: unitCount || 1
       });
 
       const savedBooking = await newBooking.save();
