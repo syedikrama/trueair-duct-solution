@@ -4,6 +4,7 @@ let {port} = require("./src/config/env");
 let db = require("./src/config/db");
 const bookingRoutes = require("./src/routes/bookingRoutes");
 const authRoutes = require("./src/routes/authRoutes");
+const serviceRoutes = require("./src/routes/serviceRoutes");
 
 
 let trueAir = express();
@@ -14,6 +15,8 @@ trueAir.use(cors());
 
 trueAir.use("/api/bookings", bookingRoutes);
 trueAir.use("/api/auth", authRoutes);
+trueAir.use("/api/services", serviceRoutes);
+
 
 
 

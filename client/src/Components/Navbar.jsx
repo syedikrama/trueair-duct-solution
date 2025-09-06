@@ -1,83 +1,107 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [services, setServices] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3001/api/services")
+      .then((res) => setServices(res.data))
+      .catch((err) => console.error("Error fetching services:", err));
+  }, []);
 
   return (
-  <div>
-    <nav className="navbar navbar-expand-lg navbar-dark custom-navbar">
-      <div className="container">
-        <Link className="navbar-brand" to="/">
-          <i className="fas fa-wind me-2"></i>
-          TrueAir Duct Solutions
-        </Link>
-        
-        <button 
-          className="navbar-toggler" 
-          type="button" 
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
-        
-        <div className={`collapse navbar-collapse ${isOpen ? 'show' : ''}`}>
-          <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-            <li className="nav-item">
-              <Link className="nav-link" to="/">
-                <i className="fas fa-home me-1"></i> Home
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/about">
-                <i className="fas fa-info-circle me-1"></i> About
-              </Link>
-            </li>
-            
-            <li className="nav-item dropdown">
-              <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                <i className="fas fa-concierge-bell me-1"></i> Services
-              </a>
-              <ul className="dropdown-menu">
-                <li><Link className="dropdown-item" to="/services/air-duct-cleaning">Air Duct Cleaning</Link></li>
-    <li><Link className="dropdown-item" to="/services/dryer-vent-cleaning">Dryer Vent Cleaning</Link></li>
-    <li><Link className="dropdown-item" to="/services/supply-vent-cleaning">Supply Vent Cleaning</Link></li>
-    <li><Link className="dropdown-item" to="/services/negative-pressure-machine">Negative Pressure Machine</Link></li>
-    <li><Link className="dropdown-item" to="/services/brush-cleaning">Brush Cleaning</Link></li>
-    <li><Link className="dropdown-item" to="/services/deep-cleaning">Deep Cleaning</Link></li>
-    <li><Link className="dropdown-item" to="/services/chimney-cleaning">Chimney Cleaning</Link></li>
-    <li><Link className="dropdown-item" to="/services/hvac-system-cleaning">HVAC System Cleaning</Link></li>
-                <li><hr className="dropdown-divider"/></li>
-                <li><Link className="dropdown-item" to="/services">All Services</Link></li>
-              </ul>
-            </li>
-            
-            <li className="nav-item">
-              <Link className="nav-link" to="/gallery">
-                <i className="fas fa-images me-1"></i> Gallery
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/contact">
-                <i className="fas fa-phone me-1"></i> Contact
-              </Link>
-            </li>
-          </ul>
-          
-          <form className="d-flex ms-lg-3">
-            <input 
-              className="form-control me-2 search-input" 
-              type="search" 
-              placeholder="Search services..." 
-            />
-            <button className="btn btn-search" type="submit">
-              <i className="fas fa-search"></i>
-            </button>
-          </form>
+    <div>
+      <nav className="navbar navbar-expand-lg navbar-dark custom-navbar">
+        <div className="container">
+          <Link className="navbar-brand" to="/">
+            <i className="fas fa-wind me-2"></i>
+            TrueAir Duct Solutions
+          </Link>
+
+          <button
+            className="navbar-toggler"
+            type="button"
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
+
+          <div className={`collapse navbar-collapse ${isOpen ? "show" : ""}`}>
+            <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+              <li className="nav-item">
+                <Link className="nav-link" to="/">
+                  <i className="fas fa-home me-1"></i> Home
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/about">
+                  <i className="fas fa-info-circle me-1"></i> About
+                </Link>
+              </li>
+
+              {/* Services Dropdown */}
+              <li className="nav-item dropdown">
+                <a
+                  className="nav-link dropdown-toggle"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                >
+                  <i className="fas fa-concierge-bell me-1"></i> Services
+                </a>
+                <ul className="dropdown-menu">
+                  {services.map((s) => (
+                    <li key={s._id}>
+                      <Link className="dropdown-item" to={`/services/${s._id}`}>
+                        {s.title}
+                      </Link>
+                    </li>
+                  ))}
+                  <li>
+                    <hr className="dropdown-divider" />
+                  </li>
+                  <li>
+                    <Link className="dropdown-item" to="/services">
+                      All Services
+                    </Link>
+                  </li>
+                </ul>
+              </li>
+
+              <li className="nav-item">
+                <Link className="nav-link" to="/gallery">
+                  <i className="fas fa-images me-1"></i> Gallery
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/contact">
+                  <i className="fas fa-phone me-1"></i> Contact
+                </Link>
+              </li>
+            </ul>
+
+            {/* Search Box */}
+            <form className="d-flex ms-lg-3">
+              <input
+                className="form-control me-2 search-input"
+                type="search"
+                placeholder="Search services..."
+              />
+              <button className="btn btn-search" type="submit">
+                <i className="fas fa-search"></i>
+              </button>
+            </form>
+          </div>
         </div>
-      </div>
-      
-      <style jsx>{`
+
+
+
+
+        <style jsx>{`
         .custom-navbar {
           background: linear-gradient(135deg, #2c6b9e 0%, #1a4a75 100%);
           box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
@@ -173,7 +197,7 @@ export default function Navbar() {
           }
         }
       `}</style>
-    </nav>
+      </nav>
     </div>
   );
 }
