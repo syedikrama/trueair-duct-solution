@@ -4,12 +4,12 @@ import axios from "axios";
 import "../styles/serviceHighlightsStyly.css";
 
 export default function ServiceHighlights() {
-  const [services, setServices] = useState([]);
+  let [services, setServices] = useState([]);
 
   useEffect(() => {
-    const fetchServices = async () => {
+    let fetchServices = async () => {
       try {
-        const res = await axios.get("http://localhost:3001/api/services");
+        let res = await axios.get("http://localhost:3001/api/services");
         // Sirf 3 services hi show karni hain highlights me
         setServices(res.data.slice(0, 3));
       } catch (err) {

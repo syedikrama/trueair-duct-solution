@@ -2,9 +2,9 @@ require("dotenv").config();
 let express = require("express");
 let { port } = require("./src/config/env");
 let db = require("./src/config/db");
-const bookingRoutes = require("./src/routes/bookingRoutes");
-const authRoutes = require("./src/routes/authRoutes");
-const serviceRoutes = require("./src/routes/serviceRoutes");
+let bookingRoutes = require("./src/routes/bookingRoutes");
+let authRoutes = require("./src/routes/authRoutes");
+let serviceRoutes = require("./src/routes/serviceRoutes");
 
 
 let trueAir = express();

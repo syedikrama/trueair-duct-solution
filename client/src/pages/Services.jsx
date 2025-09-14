@@ -5,13 +5,13 @@ import axios from "axios";
 import "../styles/servicesStyle.css"; // Import the CSS file
 
 export default function Services() {
-  const [services, setServices] = useState([]);
-  const [loading, setLoading] = useState(true);
+  let [services, setServices] = useState([]);
+  let [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchServices = async () => {
+    let fetchServices = async () => {
       try {
-        const res = await axios.get("http://localhost:3001/api/services");
+        let res = await axios.get("http://localhost:3001/api/services");
         setServices(res.data);
       } catch (err) {
         console.error("Error fetching services:", err);

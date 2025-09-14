@@ -9,31 +9,31 @@ import { io } from "socket.io-client";
 // import api from './Config';
 
 export default function Dashboard() {
-  const navigate = useNavigate();
-  const [stats, setStats] = useState({
+  let navigate = useNavigate();
+  let [stats, setStats] = useState({
     totalBookings: 0,
     pendingBookings: 0,
     completedBookings: 0,
     totalRevenue: 0
   });
 
-  const [recentBookings, setRecentBookings] = useState([]);
-  const [allBookings, setAllBookings] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState('overview');
-  const [customers, setCustomers] = useState([]); // ✅ New state for customers
-  const [selectedCustomer, setSelectedCustomer] = useState(null);
-  const [showCustomerModal, setShowCustomerModal] = useState(false);
+  let [recentBookings, setRecentBookings] = useState([]);
+  let [allBookings, setAllBookings] = useState([]);
+  let [loading, setLoading] = useState(true);
+  let [activeTab, setActiveTab] = useState('overview');
+  let [customers, setCustomers] = useState([]); // ✅ New state for customers
+  let [selectedCustomer, setSelectedCustomer] = useState(null);
+  let [showCustomerModal, setShowCustomerModal] = useState(false);
 
-  const [showForm, setShowForm] = useState(false);
-  const [editingService, setEditingService] = useState(null);
-  const [services, setServices] = useState([]);
-  const [selectedBooking, setSelectedBooking] = useState(null);
-  const [showBookingModal, setShowBookingModal] = useState(false);
+  let [showForm, setShowForm] = useState(false);
+  let [editingService, setEditingService] = useState(null);
+  let [services, setServices] = useState([]);
+  let [selectedBooking, setSelectedBooking] = useState(null);
+  let [showBookingModal, setShowBookingModal] = useState(false);
 
   // Socket.io connection for real-time updates
   useEffect(() => {
-    const socket = io("http://localhost:3001");
+    let socket = io("http://localhost:3001");
     socket.on("newBooking", (booking) => {
       setAllBookings(prev => [booking, ...prev]);
       setRecentBookings(prev => [booking, ...prev].slice(0, 5));
@@ -43,16 +43,16 @@ export default function Dashboard() {
   }, [allBookings]);
   // Fetch all data on load
   useEffect(() => {
-    const fetchDashboardData = async () => {
+    let fetchDashboardData = async () => {
       try {
-        const bookingsRes = await axios.get("http://localhost:3001/api/bookings");
+        let bookingsRes = await axios.get("http://localhost:3001/api/bookings");
         setAllBookings(bookingsRes.data);
         setRecentBookings(bookingsRes.data.slice(0, 5));
         updateStats(bookingsRes.data);
 
         // ✅ Extract unique customers from bookings
-        const uniqueCustomers = [];
-        const seenEmails = new Set();
+        let uniqueCustomers = [];
+        let seenEmails = new Set();
         bookingsRes.data.forEach(b => {
           if (!seenEmails.has(b.email)) {
             seenEmails.add(b.email);
@@ -68,7 +68,7 @@ export default function Dashboard() {
         setCustomers(uniqueCustomers);
 
         // ✅ Services fetch
-        const servicesRes = await axios.get("http://localhost:3001/api/services");
+        let servicesRes = await axios.get("http://localhost:3001/api/services");
         setServices(servicesRes.data);
 
         setLoading(false);
@@ -80,16 +80,16 @@ export default function Dashboard() {
     fetchDashboardData();
   }, []);
 
-  const updateStats = (bookings) => {
-    const totalBookings = bookings.length;
-    const pendingBookings = bookings.filter(b => b.status === 'pending').length;
-    const completedBookings = bookings.filter(b => b.status === 'completed').length;
-    const totalRevenue = bookings.reduce((sum, b) => sum + (b.estimatedPrice || 0), 0);
+  let updateStats = (bookings) => {
+    let totalBookings = bookings.length;
+    let pendingBookings = bookings.filter(b => b.status === 'pending').length;
+    let completedBookings = bookings.filter(b => b.status === 'completed').length;
+    let totalRevenue = bookings.reduce((sum, b) => sum + (b.estimatedPrice || 0), 0);
     setStats({ totalBookings, pendingBookings, completedBookings, totalRevenue });
   };
 
-  const getStatusBadge = (status) => {
-    const statusClasses = {
+  let getStatusBadge = (status) => {
+    let statusClasses = {
       pending: 'status-pending',
       confirmed: 'status-confirmed',
       completed: 'status-completed',
@@ -103,34 +103,34 @@ export default function Dashboard() {
   };
 
 // for log out
-    const handleLogout = () => {
+    let handleLogout = () => {
       localStorage.removeItem('token');
       localStorage.removeItem('user');
       window.location.href = '/login';
     };
 
   // View Booking Details
-  const handleViewBooking = (booking) => {
+  let handleViewBooking = (booking) => {
     setSelectedBooking(booking);
     setShowBookingModal(true);
   };
 
   // Edit Booking - Redirect to edit page
-  const handleEditBooking = (bookingId) => {
+  let handleEditBooking = (bookingId) => {
     navigate(`/admin/bookings/edit/${bookingId}`);
   };
 
-  const handleServiceAdded = (newService) => {
+  let handleServiceAdded = (newService) => {
     setServices(prev => [newService, ...prev]);
     setShowForm(false);
   };
 
-  const handleEditClick = (service) => {
+  let handleEditClick = (service) => {
     setEditingService(service);
     setShowForm(true);
   };
 
-  const handleDeleteService = async (id) => {
+  let handleDeleteService = async (id) => {
     if (window.confirm("Are you sure you want to delete this service?")) {
       try {
         await axios.delete(`http://localhost:3001/api/services/${id}`);
@@ -143,11 +143,11 @@ export default function Dashboard() {
   };
 
   // Booking CRUD
-  const handleDeleteBooking = async (id) => {
+  let handleDeleteBooking = async (id) => {
     if (window.confirm("Are you sure you want to delete this booking?")) {
       try {
         await axios.delete(`http://localhost:3001/api/bookings/${id}`);
-        const updated = allBookings.filter(b => b._id !== id);
+        let updated = allBookings.filter(b => b._id !== id);
         setAllBookings(updated);
         setRecentBookings(updated.slice(0, 5));
         updateStats(updated);
@@ -158,10 +158,10 @@ export default function Dashboard() {
     }
   };
 
-  const handleUpdateStatus = async (id, status) => {
+  let handleUpdateStatus = async (id, status) => {
     try {
-      const res = await axios.put(`http://localhost:3001/api/bookings/${id}/status`, { status });
-      const updatedBookings = allBookings.map(b => b._id === id ? res.data.data : b);
+      let res = await axios.put(`http://localhost:3001/api/bookings/${id}/status`, { status });
+      let updatedBookings = allBookings.map(b => b._id === id ? res.data.data : b);
       setAllBookings(updatedBookings);
       setRecentBookings(updatedBookings.slice(0, 5));
       updateStats(updatedBookings);
@@ -171,8 +171,8 @@ export default function Dashboard() {
     }
   };
 
-  const handleViewCustomer = async (email) => {
-    const bookingsOfCustomer = allBookings.filter(b => b.email === email);
+  let handleViewCustomer = async (email) => {
+    let bookingsOfCustomer = allBookings.filter(b => b.email === email);
 
     setSelectedCustomer({
       email,

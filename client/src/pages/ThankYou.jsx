@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import "../styles/thankyouStyle.css";
 
-const ThankYou = () => {
+let ThankYou = () => {
   useEffect(() => {
     // Scroll to top on component mount
     window.scrollTo(0, 0);

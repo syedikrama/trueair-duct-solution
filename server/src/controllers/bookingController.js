@@ -1,14 +1,14 @@
 // controllers/bookingController.js
-const moment = require("moment-timezone");
+let moment = require("moment-timezone");
 
-const Booking = require("../models/Booking");
-const { sendEmail } = require("../services/emailService");
+let Booking = require("../models/Booking");
+let { sendEmail } = require("../services/emailService");
 
-const bookingController = {
+let bookingController = {
   // ✅ Create Booking
   createBooking: async (req, res) => {
     try {
-      const {
+      let {
         firstName,
         lastName,
         email,
@@ -34,7 +34,7 @@ const bookingController = {
       }
 
       // Save booking
-      const newBooking = new Booking({
+      let newBooking = new Booking({
         firstName,
         lastName,
         email,
@@ -55,7 +55,7 @@ const bookingController = {
         unitCount: unitCount || 1
       });
 
-      const savedBooking = await newBooking.save();
+      let savedBooking = await newBooking.save();
 
       // ✅ Email to Admin
       await sendEmail({
@@ -88,9 +88,9 @@ const bookingController = {
   // ✅ Update Booking Status (Admin)
   updateBookingStatus: async (req, res) => {
     try {
-      const { status } = req.body;
+      let { status } = req.body;
 
-      const updatedBooking = await Booking.findByIdAndUpdate(
+      let updatedBooking = await Booking.findByIdAndUpdate(
         req.params.id,
         { status },
         { new: true }
@@ -117,7 +117,7 @@ const bookingController = {
 
 
 if (status === "confirmed") {
-  const customerTime = moment
+  let customerTime = moment
     .tz(
       `${updatedBooking.cleaningDate.toISOString().split("T")[0]} ${updatedBooking.cleaningTime}`,
       "YYYY-MM-DD HH:mm",
@@ -153,7 +153,7 @@ if (status === "confirmed") {
   // ✅ Get All Bookings (Admin)
   getAllBookings: async (req, res) => {
     try {
-      const bookings = await Booking.find().sort({ createdAt: -1 });
+      let bookings = await Booking.find().sort({ createdAt: -1 });
       res.status(200).json(bookings);
     } catch (error) {
       res.status(500).json({ message: "Failed to fetch bookings.", error: error.message });
@@ -163,7 +163,7 @@ if (status === "confirmed") {
   // ✅ Get Booking By ID
   getBookingById: async (req, res) => {
     try {
-      const booking = await Booking.findById(req.params.id);
+      let booking = await Booking.findById(req.params.id);
       if (!booking) return res.status(404).json({ message: "Booking not found." });
 
       res.status(200).json(booking);
@@ -175,7 +175,7 @@ if (status === "confirmed") {
   // ✅ Delete Booking
   deleteBooking: async (req, res) => {
     try {
-      const deletedBooking = await Booking.findByIdAndDelete(req.params.id);
+      let deletedBooking = await Booking.findByIdAndDelete(req.params.id);
       if (!deletedBooking) {
         return res.status(404).json({ message: "Booking not found." });
       }

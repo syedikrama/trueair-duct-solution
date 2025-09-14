@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import logo from '../assets/images/logo.png';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,7 +19,7 @@ export default function Navbar() {
         <div className="container">
           <Link className="navbar-brand d-flex align-items-center" to="/">
             <img
-              src={logo}
+              src={"/images/logo.png"}
               alt="TrueAir Duct Solutions"
               className="navbar-logo"
             />

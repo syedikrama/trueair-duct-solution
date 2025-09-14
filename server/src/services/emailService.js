@@ -1,7 +1,7 @@
-const nodemailer = require("nodemailer");
+let nodemailer = require("nodemailer");
 require("dotenv").config();
 
-const transporter = nodemailer.createTransport({
+let transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
     user: process.env.EMAIL_USER,
@@ -9,7 +9,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-const sendEmail = async ({ to, subject, text, html }) => {
+let sendEmail = async ({ to, subject, text, html }) => {
   try {
     await transporter.sendMail({
       from: `"TrueAir Duct Solution" <${process.env.EMAIL_USER}>`,

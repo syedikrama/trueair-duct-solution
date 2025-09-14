@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+let mongoose = require("mongoose");
 
-const bookingSchema = new mongoose.Schema({
+let bookingSchema = new mongoose.Schema({
   firstName: {
     type: String,
     required: true,

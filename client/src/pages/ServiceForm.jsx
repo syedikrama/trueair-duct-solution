@@ -3,7 +3,7 @@
 // // import "../styles/serviceFormStyle.css";
 
 // export default function ServiceForm({ onSuccess, editingService }) {
-//   const [formData, setFormData] = useState({
+//   let [formData, setFormData] = useState({
 //     title: "",
 //     image: "",
 //     description: "",
@@ -14,8 +14,8 @@
 //     coverage: "",
 //   });
 
-//   const [loading, setLoading] = useState(false);
-//   const [message, setMessage] = useState("");
+//   let [loading, setLoading] = useState(false);
+//   let [message, setMessage] = useState("");
 
 //   // Pre-fill form if editingService exists
 //   useEffect(() => {
@@ -45,19 +45,19 @@
 //   }, [editingService]);
 
 //   // handle input change
-//   const handleChange = (e) => {
-//     const { name, value } = e.target;
+//   let handleChange = (e) => {
+//     let { name, value } = e.target;
 //     setFormData({ ...formData, [name]: value });
 //   };
 
 //   // handle form submit
-//   const handleSubmit = async (e) => {
+//   let handleSubmit = async (e) => {
 //     e.preventDefault();
 //     setLoading(true);
 //     setMessage("");
 
 //     try {
-//       const payload = {
+//       let payload = {
 //         ...formData,
 //         benefits: formData.benefits.split(",").map((b) => b.trim()),
 //         process: formData.process.split(",").map((p) => p.trim()),
@@ -228,7 +228,7 @@ import axios from "axios";
 // import "../styles/serviceFormStyle.css";
 
 export default function ServiceForm({ onSuccess, editingService }) {
-  const [formData, setFormData] = useState({
+  let [formData, setFormData] = useState({
     title: "",
     image: "",
     description: "",
@@ -240,12 +240,12 @@ export default function ServiceForm({ onSuccess, editingService }) {
     packages: [] // ✅ Naya field packages ke liye
   });
 
-  const [packages, setPackages] = useState([
+  let [packages, setPackages] = useState([
     { name: "", price: "", features: "", isPopular: false }
   ]);
   
-  const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
+  let [loading, setLoading] = useState(false);
+  let [message, setMessage] = useState("");
 
   // Pre-fill form if editingService exists
   useEffect(() => {
@@ -274,39 +274,39 @@ export default function ServiceForm({ onSuccess, editingService }) {
   }, [editingService]);
 
   // handle input change
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  let handleChange = (e) => {
+    let { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
   // ✅ Package fields handle karo
-  const handlePackageChange = (index, field, value) => {
-    const updatedPackages = [...packages];
+  let handlePackageChange = (index, field, value) => {
+    let updatedPackages = [...packages];
     updatedPackages[index][field] = value;
     setPackages(updatedPackages);
   };
 
   // ✅ Naya package add karo
-  const addPackage = () => {
+  let addPackage = () => {
     setPackages([...packages, { name: "", price: "", features: "", isPopular: false }]);
   };
 
   // ✅ Package remove karo
-  const removePackage = (index) => {
+  let removePackage = (index) => {
     if (packages.length > 1) {
-      const updatedPackages = packages.filter((_, i) => i !== index);
+      let updatedPackages = packages.filter((_, i) => i !== index);
       setPackages(updatedPackages);
     }
   };
 
   // handle form submit
-  const handleSubmit = async (e) => {
+  let handleSubmit = async (e) => {
   e.preventDefault();
   setLoading(true);
   setMessage("");
 
   try {
-    const payload = {
+    let payload = {
       ...formData,
       benefits: formData.benefits.split(",").map((b) => b.trim()),
       process: formData.process.split(",").map((p) => p.trim()),

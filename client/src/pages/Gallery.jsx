@@ -3,10 +3,10 @@ import '../styles/galleryStyle.css';
 
 
 export default function Gallery() {
-    const [selectedCategory, setSelectedCategory] = useState('all');
+    let [selectedCategory, setSelectedCategory] = useState('all');
 
     // Sample gallery data
-    const galleryItems = [
+    let galleryItems = [
         {
             id: 1,
             category: 'residential',
@@ -72,7 +72,7 @@ export default function Gallery() {
         }
     ];
 
-    const categories = [
+    let categories = [
         { id: 'all', name: 'All Projects' },
         { id: 'residential', name: 'Residential' },
         { id: 'commercial', name: 'Commercial' },
@@ -80,7 +80,7 @@ export default function Gallery() {
         { id: 'hvac', name: 'HVAC Systems' }
     ];
 
-    const filteredItems = selectedCategory === 'all'
+    let filteredItems = selectedCategory === 'all'
         ? galleryItems
         : galleryItems.filter(item => item.category === selectedCategory);
 

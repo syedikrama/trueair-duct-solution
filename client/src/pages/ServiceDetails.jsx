@@ -5,14 +5,14 @@ import "../styles/serviceDetailsStyle.css";
 // import image from '../assets/images/service_1';
 
 export default function ServiceDetails() {
-  const { serviceId } = useParams();
-  const [service, setService] = useState(null);
-  const [loading, setLoading] = useState(true);
+  let { serviceId } = useParams();
+  let [service, setService] = useState(null);
+  let [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchService = async () => {
+    let fetchService = async () => {
       try {
-        const res = await axios.get(
+        let res = await axios.get(
           `http://localhost:3001/api/services/${serviceId}`
         );
         setService(res.data);

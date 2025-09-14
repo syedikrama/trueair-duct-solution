@@ -3,28 +3,28 @@ import { useNavigate } from 'react-router-dom';
 import '../styles/loginStyle.css';
 
 export default function Login() {
-  const [formData, setFormData] = useState({
+  let [formData, setFormData] = useState({
     email: '',
     password: ''
   });
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
-  const navigate = useNavigate();
+  let [loading, setLoading] = useState(false);
+  let [error, setError] = useState('');
+  let navigate = useNavigate();
 
-  const handleChange = (e) => {
+  let handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
     });
   };
 
-  const handleSubmit = async (e) => {
+  let handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError('');
 
     try {
-      const response = await fetch('http://localhost:3001/api/auth/login', {
+      let response = await fetch('http://localhost:3001/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -32,7 +32,7 @@ export default function Login() {
         body: JSON.stringify(formData)
       });
 
-      const data = await response.json();
+      let data = await response.json();
 
       if (response.ok) {
         // Save token and user data

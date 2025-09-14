@@ -5,9 +5,9 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
 export default function BookingPage() {
-  const { serviceId } = useParams();
-  const navigate = useNavigate();
-  const [formData, setFormData] = useState({
+  let { serviceId } = useParams();
+  let navigate = useNavigate();
+  let [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
     email: '',
@@ -24,16 +24,16 @@ export default function BookingPage() {
     comment: ''
   });
 
-  const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  let userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
-  const [loading, setLoading] = useState(false);
-  const [servicePrices, setServicePrices] = useState({});
-  const [calculatedPrice, setCalculatedPrice] = useState(0);
-  const [originalPrice, setOriginalPrice] = useState(0);
-  const [discount, setDiscount] = useState(0);
-  const [minDate, setMinDate] = useState('');
+  let [loading, setLoading] = useState(false);
+  let [servicePrices, setServicePrices] = useState({});
+  let [calculatedPrice, setCalculatedPrice] = useState(0);
+  let [originalPrice, setOriginalPrice] = useState(0);
+  let [discount, setDiscount] = useState(0);
+  let [minDate, setMinDate] = useState('');
 
-  const services = {
+  let services = {
     'air-duct-cleaning': 'Air Duct Cleaning',
     'dryer-vent-cleaning': 'Dryer Vent Cleaning',
     'supply-vent-cleaning': 'Supply Vent Cleaning',
@@ -45,19 +45,19 @@ export default function BookingPage() {
   };
 
   // Discount structure: { unitCount: discountPercentage }
-  const discountTiers = {
+  let discountTiers = {
     1: 0,    // No discount for 1 unit
     2: 25,   // 25% discount for 2 units
     3: 30,   // 30% discount for 3 units
     4: 35,   // 35% discount for 4+ units
   };
 
-  const timeSlots = [
+  let timeSlots = [
     '9:00 AM', '10:00 AM', '11:00 AM', '12:00 PM',
     '1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM'
   ];
 
-  const states = [
+  let states = [
     'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado',
     'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho',
     'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana',
@@ -72,32 +72,32 @@ export default function BookingPage() {
 
   // Calculate minimum date (tomorrow)
   useEffect(() => {
-    const tomorrow = new Date();
+    let tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1); // Add 1 day
     setMinDate(tomorrow.toISOString().split('T')[0]);
   }, []);
 
   // Saturday disable karne ke liye function
-  const isSaturdayDisabled = (dateString) => {
-    const [year, month, day] = dateString.split('-').map(Number);
-    const date = new Date(year, month - 1, day); // Month 0-indexed
+  let isSaturdayDisabled = (dateString) => {
+    let [year, month, day] = dateString.split('-').map(Number);
+    let date = new Date(year, month - 1, day); // Month 0-indexed
     return date.getDay() === 6; // Saturday
   };
 
 
 
   // Calculate price based on unit count
-  const calculatePrice = (basePrice, units) => {
-    const unitCount = Math.max(1, Math.min(10, Number(units)));
+  let calculatePrice = (basePrice, units) => {
+    let unitCount = Math.max(1, Math.min(10, Number(units)));
     let discountPercentage = discountTiers[unitCount];
 
     if (discountPercentage === undefined) {
       discountPercentage = unitCount >= 4 ? discountTiers[4] : 0;
     }
 
-    const totalBasePrice = basePrice * unitCount;
-    const discountAmount = (totalBasePrice * discountPercentage) / 100;
-    const finalPrice = totalBasePrice - discountAmount;
+    let totalBasePrice = basePrice * unitCount;
+    let discountAmount = (totalBasePrice * discountPercentage) / 100;
+    let finalPrice = totalBasePrice - discountAmount;
 
     return {
       original: totalBasePrice,
@@ -109,9 +109,9 @@ export default function BookingPage() {
   };
 
   useEffect(() => {
-    const fetchServicePrices = async () => {
+    let fetchServicePrices = async () => {
       try {
-        const fixedPrices = {
+        let fixedPrices = {
           'air-duct-cleaning': 199,
           'dryer-vent-cleaning': 99,
           'supply-vent-cleaning': 149,
@@ -133,8 +133,8 @@ export default function BookingPage() {
   // Update price when service type or unit count changes
   useEffect(() => {
     if (formData.serviceType && servicePrices[formData.serviceType]) {
-      const basePrice = servicePrices[formData.serviceType];
-      const calculation = calculatePrice(basePrice, formData.unitCount);
+      let basePrice = servicePrices[formData.serviceType];
+      let calculation = calculatePrice(basePrice, formData.unitCount);
 
       setCalculatedPrice(calculation.discounted);
       setOriginalPrice(calculation.original);
@@ -143,8 +143,8 @@ export default function BookingPage() {
   }, [formData.serviceType, formData.unitCount, servicePrices]);
 
   // Date input ke liye custom handler
-  const handleDateChange = (e) => {
-    const selectedDate = e.target.value;
+  let handleDateChange = (e) => {
+    let selectedDate = e.target.value;
 
     if (isSaturdayDisabled(selectedDate)) {
       alert('Sorry, we are closed on Saturdays. Please choose another day.');
@@ -161,15 +161,15 @@ export default function BookingPage() {
     });
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  let handleChange = (e) => {
+    let { name, value } = e.target;
     setFormData({
       ...formData,
       [name]: name === 'unitCount' ? parseInt(value, 10) || 1 : value
     });
   };
 
-  const handleSubmit = async (e) => {
+  let handleSubmit = async (e) => {
     e.preventDefault();
 
     // Saturday check on submission
@@ -181,7 +181,7 @@ export default function BookingPage() {
     setLoading(true);
 
     try {
-      const bookingData = {
+      let bookingData = {
         ...formData,
         estimatedPrice: calculatedPrice,
         originalPrice: originalPrice,
@@ -190,7 +190,7 @@ export default function BookingPage() {
         timeZone: userTimeZone
       };
 
-      const response = await fetch('http://localhost:3001/api/bookings', {
+      let response = await fetch('http://localhost:3001/api/bookings', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
