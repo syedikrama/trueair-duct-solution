@@ -1,8 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import "../styles/homeStyle.css"
-import banner from '../assets/images/banner_1.jpeg'
-import banner_3 from '../assets/images/banner_3.jpeg'
 
 export default function Banner() {
   return (
@@ -11,7 +9,7 @@ export default function Banner() {
       {/* Background Image with Overlay */}
       <div className="banner-image">
         <img
-          src={banner_3}
+          src={"/images/banner_3.jpeg"}
           alt="Professional Air Duct Cleaning Services"
           className="img-fluid w-100 banner-img"
         />
