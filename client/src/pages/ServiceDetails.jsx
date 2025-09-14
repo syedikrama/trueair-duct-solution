@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import "../styles/serviceDetailsStyle.css";
+// import image from '../assets/images/service_1';
 
 export default function ServiceDetails() {
   const { serviceId } = useParams();
@@ -78,9 +79,12 @@ export default function ServiceDetails() {
                   <span>{service.coverage}</span>
                 </div>
               </div>
+            <Link to={`/booking/${serviceId}`}
+            >
               <button className="btn btn-primary btn-book">
                 <i className="fas fa-calendar-check"></i> Book This Service
               </button>
+              </Link>
             </div>
             <div className="col-lg-6">
               <img
@@ -113,6 +117,50 @@ export default function ServiceDetails() {
         </div>
       </section>
 
+      {/* Packages Section - Add this after Benefits section */}
+
+
+{/* Packages Section */}
+<section className="packages-section">
+<div className="container">
+ <h2 className="section-title">Our Cleaning Packages</h2>
+
+ {service.packages?.length > 0 ? (
+   service.packages.map((pkg, index) => (
+     <div key={index} className={`package-card ${pkg.isPopular ? "premium" : ""}`}>
+       <div className="package-header">
+         <h3>{pkg.name}</h3>
+         <div className="package-price">${pkg.price}</div>
+       </div>
+
+       <div className="package-includes">
+         <h4>Package Includes:</h4>
+         <ul className="package-features">
+           {Array.isArray(pkg.features) && pkg.features.map((feature, idx) => (
+             <li key={idx}>
+               <i className="fas fa-check-circle"></i>
+               {feature}
+             </li>
+           ))}
+         </ul>
+       </div>
+
+       <div className="package-cta">
+         <Link
+           to={`/booking/${serviceId}?package=${pkg.name.toLowerCase().replace(/\s+/g, "-")}`}
+           className="btn btn-primary btn-package"
+         >
+           <i className="fas fa-shopping-cart"></i> Book {pkg.name}
+         </Link>
+       </div>
+     </div>
+   ))
+ ) : (
+   <p>No packages available for this service.</p>
+ )}
+</div>
+</section>
+
       {/* Process */}
       <section className="process-section">
         <div className="container">
@@ -141,7 +189,7 @@ export default function ServiceDetails() {
           </p>
           <div className="cta-buttons">
             <button className="btn btn-primary btn-lg">
-              <i className="fas fa-phone"></i> Call Now: 0019-0022002
+              <i className="fas fa-phone"></i> Call Now: (463) 227-5480
             </button>
             <Link
               to={`/booking/${serviceId}`}

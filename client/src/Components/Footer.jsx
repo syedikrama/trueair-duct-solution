@@ -72,19 +72,19 @@ export default function Footer() {
                 <div className="footer-contact">
                   <div className="contact-item">
                     <i className="fas fa-map-marker-alt"></i>
-                    <span>123 Clean Air Street, City, State 12345</span>
+                    <span className='text-white'>Charlotte, North Carolina, 28202</span>
                   </div>
                   <div className="contact-item">
                     <i className="fas fa-phone"></i>
-                    <span>0019-0022002</span>
+                    <span className='text-white'>(463) 227-5480</span>
                   </div>
                   <div className="contact-item">
                     <i className="fas fa-envelope"></i>
-                    <span>info@trueairducts.com</span>
+                    <span className='text-white'>trueairduct881@gmail.com</span>
                   </div>
                   <div className="contact-item">
                     <i className="fas fa-clock"></i>
-                    <span>Mon-Sat: 8:00 AM - 8:00 PM</span>
+                    <span className='text-white'>Mon-Sun: 7:00 AM - 7:00 PM / Sat-Close</span>
                   </div>
                 </div>
               </div>
@@ -99,7 +99,7 @@ export default function Footer() {
           <div className="row align-items-center">
             <div className="col-md-6">
               <p className="copyright">
-                © 2024 TrueAir Duct Solutions. All rights reserved.
+                © 2010 TrueAir Duct Solutions. All rights reserved.
               </p>
             </div>
             <div className="col-md-6">

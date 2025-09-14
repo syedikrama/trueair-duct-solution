@@ -49,6 +49,13 @@ const bookingSchema = new mongoose.Schema({
     type: String,
     required: true, // jis waqt cleaning karwani hai
   },
+
+  // 👇 new field for user's local timezone
+  timeZone: {
+    type: String,
+    required: true, // e.g., "America/New_York" or "Asia/Karachi"
+  },
+
   bookingDate: {
     type: Date,
     default: Date.now, // jab order place hoga us waqt ki date/time

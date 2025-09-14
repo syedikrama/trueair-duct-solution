@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import logo from '../assets/images/logo.png';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,11 +18,13 @@ export default function Navbar() {
     <div>
       <nav className="navbar navbar-expand-lg navbar-dark custom-navbar">
         <div className="container">
-          <Link className="navbar-brand" to="/">
-            {/* <i className="fas fa-home me-2"></i> */}
-            {/* <i class="fa-solid fa-house-chimney me-2"></i> */}
-            <i class="fa-regular fa-house"></i>
-            TrueAir Duct Solutions
+          <Link className="navbar-brand d-flex align-items-center" to="/">
+            <img
+              src={logo}
+              alt="TrueAir Duct Solutions"
+              className="navbar-logo"
+            />
+            <span className="brand-text">TrueAir Duct Solutions</span>
           </Link>
 
           <button
@@ -100,26 +103,31 @@ export default function Navbar() {
           </div>
         </div>
 
-
-
-
         <style jsx>{`
         .custom-navbar {
           background: linear-gradient(135deg, #2c6b9e 0%, #1a4a75 100%);
           box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
-          padding: 0.8rem 1rem;
+          padding: 0.5rem 1rem;
         }
         
         .navbar-brand {
           font-weight: 700;
-          font-size: 1.8rem;
           display: flex;
           align-items: center;
+          margin-right: 1rem;
         }
         
-        .navbar-brand i {
-          color: #ff6b00;
-          font-size: 2rem;
+        .navbar-logo {
+          height: 50px;
+          width: auto;
+          max-width: 100%;
+          object-fit: contain;
+          margin-right: 10px;
+        }
+        
+        .brand-text {
+          font-size: 1.4rem;
+          color: white;
         }
         
         .nav-link {
@@ -196,6 +204,29 @@ export default function Navbar() {
           
           .search-input {
             margin-top: 1rem;
+          }
+          
+          .navbar-logo {
+            height: 40px;
+          }
+          
+          .brand-text {
+            font-size: 1.2rem;
+          }
+        }
+        
+        @media (max-width: 576px) {
+          .navbar-brand {
+            margin-right: 0.5rem;
+          }
+          
+          .navbar-logo {
+            height: 35px;
+            margin-right: 8px;
+          }
+          
+          .brand-text {
+            font-size: 1rem;
           }
         }
       `}</style>

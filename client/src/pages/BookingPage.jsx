@@ -24,6 +24,8 @@ export default function BookingPage() {
     comment: ''
   });
 
+  const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
   const [loading, setLoading] = useState(false);
   const [servicePrices, setServicePrices] = useState({});
   const [calculatedPrice, setCalculatedPrice] = useState(0);
@@ -184,7 +186,8 @@ export default function BookingPage() {
         estimatedPrice: calculatedPrice,
         originalPrice: originalPrice,
         discountAmount: discount,
-        unitCount: formData.unitCount
+        unitCount: formData.unitCount,
+        timeZone: userTimeZone
       };
 
       const response = await fetch('http://localhost:3001/api/bookings', {
@@ -436,22 +439,13 @@ export default function BookingPage() {
                     <div className="col-md-6">
                       <div className="form-group">
                         <label>Preferred Cleaning Date *</label>
-                        {/* <input
-                          type="date"
-                          name="cleaningDate"
-                          value={formData.cleaningDate}
-                          onChange={handleDateChange} // ✅ Custom handler for Saturday check
-                          required
-                          min={minDate}
-                          placeholder="Select date"
-                        /> */}
 
                         <DatePicker
                           selected={formData.cleaningDate ? new Date(formData.cleaningDate) : null}
                           onChange={(date) => {
                             setFormData({
                               ...formData,
-                              cleaningDate: date ? date.toISOString().split('T')[0] : ''
+                              cleaningDate: date ? date.toLocaleDateString('en-CA') : ''
                             });
                           }}
                           minDate={new Date(new Date().setDate(new Date().getDate() + 1))}
@@ -463,6 +457,10 @@ export default function BookingPage() {
                           isClearable
                           wrapperClassName="datepicker-wrapper"
                         />
+
+
+
+
                         <small className="date-note">
                           * Service can be booked starting from tomorrow (Saturdays closed)
                         </small>
@@ -476,8 +474,8 @@ export default function BookingPage() {
                           value={formData.cleaningTime}
                           onChange={handleChange}
                           required
-                           
-                           wrapperClassName="datepicker-wrapper"
+
+                          wrapperClassName="datepicker-wrapper"
                         >
                           <option value="">Select Time</option>
                           {timeSlots.map(time => (

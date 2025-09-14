@@ -6,6 +6,7 @@ import "../styles/dashboardStyle.css";
 import ServiceForm from "../pages/ServiceForm";
 import axios from "axios";
 import { io } from "socket.io-client";
+// import api from './Config';
 
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -20,6 +21,10 @@ export default function Dashboard() {
   const [allBookings, setAllBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('overview');
+  const [customers, setCustomers] = useState([]); // ✅ New state for customers
+  const [selectedCustomer, setSelectedCustomer] = useState(null);
+  const [showCustomerModal, setShowCustomerModal] = useState(false);
+
   const [showForm, setShowForm] = useState(false);
   const [editingService, setEditingService] = useState(null);
   const [services, setServices] = useState([]);
@@ -36,7 +41,6 @@ export default function Dashboard() {
     });
     return () => socket.disconnect();
   }, [allBookings]);
-
   // Fetch all data on load
   useEffect(() => {
     const fetchDashboardData = async () => {
@@ -46,6 +50,24 @@ export default function Dashboard() {
         setRecentBookings(bookingsRes.data.slice(0, 5));
         updateStats(bookingsRes.data);
 
+        // ✅ Extract unique customers from bookings
+        const uniqueCustomers = [];
+        const seenEmails = new Set();
+        bookingsRes.data.forEach(b => {
+          if (!seenEmails.has(b.email)) {
+            seenEmails.add(b.email);
+            uniqueCustomers.push({
+              name: `${b.firstName} ${b.lastName}`,
+              email: b.email,
+              phone: b.contactNumber,
+              address: `${b.homeAddress}, ${b.city}, ${b.state}, ${b.zip}`,
+              totalBookings: bookingsRes.data.filter(x => x.email === b.email).length
+            });
+          }
+        });
+        setCustomers(uniqueCustomers);
+
+        // ✅ Services fetch
         const servicesRes = await axios.get("http://localhost:3001/api/services");
         setServices(servicesRes.data);
 
@@ -79,6 +101,13 @@ export default function Dashboard() {
       </span>
     );
   };
+
+// for log out
+    const handleLogout = () => {
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      window.location.href = '/login';
+    };
 
   // View Booking Details
   const handleViewBooking = (booking) => {
@@ -142,6 +171,20 @@ export default function Dashboard() {
     }
   };
 
+  const handleViewCustomer = async (email) => {
+    const bookingsOfCustomer = allBookings.filter(b => b.email === email);
+
+    setSelectedCustomer({
+      email,
+      bookings: bookingsOfCustomer,
+      name: `${bookingsOfCustomer[0].firstName} ${bookingsOfCustomer[0].lastName}`,
+      phone: bookingsOfCustomer[0].contactNumber,
+      address: `${bookingsOfCustomer[0].homeAddress}, ${bookingsOfCustomer[0].city}, ${bookingsOfCustomer[0].state}, ${bookingsOfCustomer[0].zip}`
+    });
+    setShowCustomerModal(true);
+  };
+
+
   if (loading) {
     return (
       <div className="dashboard-loading">
@@ -150,6 +193,7 @@ export default function Dashboard() {
       </div>
     );
   }
+
 
   return (
     <div className="admin-dashboard">
@@ -176,6 +220,11 @@ export default function Dashboard() {
             </button>
             <button className={activeTab === 'customers' ? 'active' : ''} onClick={() => setActiveTab('customers')}>
               <i className="fas fa-users"></i> Customers
+            </button>
+            {/* className="btn btn-outline-danger" */}
+            <button onClick={handleLogout} >
+              <i className="fas fa-sign-out-alt me-2"></i>
+              Logout
             </button>
           </div>
         </div>
@@ -349,6 +398,113 @@ export default function Dashboard() {
             </div>
           )}
 
+          {activeTab === 'customers' && (
+            <div>
+              <h2>All Customers</h2>
+              <table className="custom-table">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Address</th>
+                    <th>Total Bookings</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {customers.map((c, index) => (
+                    <tr key={index}>
+                      <td>{c.name}</td>
+                      <td>{c.email}</td>
+                      <td>{c.phone}</td>
+                      <td>{c.address}</td>
+                      <td>{c.totalBookings}</td>
+                      <td>
+                        <button className="btn btn-primary"
+                          onClick={() => handleViewCustomer(c.email)}>
+                          View Details
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+
+          {selectedCustomer && showCustomerModal && (
+            <div className="modal-overlay">
+              <div className="modal-content">   {/* yahan modal-content rakho */}
+                <button className="modal-close" onClick={() => setShowCustomerModal(false)}>✖</button>
+                <h2>Customer Details</h2>
+                <p><strong>Name:</strong> {selectedCustomer.name}</p>
+                <p><strong>Email:</strong> {selectedCustomer.email}</p>
+                <p><strong>Phone:</strong> {selectedCustomer.phone}</p>
+                <p><strong>Address:</strong> {selectedCustomer.address}</p>
+                <hr />
+                <h3>Booking History</h3>
+                <table className="table">
+                  <thead>
+                    <tr>
+                      <th>Date</th>
+                      <th>Service</th>
+                      <th>Status</th>
+                      <th>Price</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {selectedCustomer.bookings?.map((b, idx) => (
+                      <tr key={idx}>
+                        <td>{new Date(b.cleaningDate).toLocaleDateString()}</td>
+                        <td>{b.serviceType}</td>
+                        <td>{b.status}</td>
+                        <td>${b.estimatedPrice}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
+
+
+
+          {/* {activeTab === 'bookings' && (
+            <div>
+              <h2>All Bookings</h2>
+              <table className="custom-table">
+                <thead>
+                  <tr>
+                    <th>Customer</th>
+                    <th>Service</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Price</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {allBookings.map((b) => (
+                    <tr key={b._id}>
+                      <td>{b.firstName} {b.lastName}</td>
+                      <td>{b.serviceType}</td>
+                      <td>{b.cleaningDate}</td>
+                      <td>{getStatusBadge(b.status)}</td>
+                      <td>${b.estimatedPrice}</td>
+                      <td>
+                        <button onClick={() => handleViewBooking(b)}>View</button>
+                        <button onClick={() => handleEditBooking(b._id)}>Edit</button>
+                        <button onClick={() => handleDeleteBooking(b._id)}>Delete</button>
+                        <button onClick={() => handleUpdateStatus(b._id, 'confirmed')}>Confirm</button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )} */}
+
+
         </div>
       </div>
 
@@ -398,6 +554,51 @@ export default function Dashboard() {
         .btn-view:hover, .btn-edit:hover, .btn-delete:hover {
           opacity: 0.8;
         }
+ 
+
+
+        .modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5); /* dark overlay */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: #ffffff;
+  color: #000;
+  padding: 20px;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 800px;
+  z-index: 1001;
+  box-shadow: 0px 5px 20px rgba(0,0,0,0.3);
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 20px;
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  cursor: pointer;
+  color: #444;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+
       `}</style>
     </div>
   );

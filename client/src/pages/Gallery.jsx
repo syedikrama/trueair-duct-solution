@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import '../styles/galleryStyle.css'
+import '../styles/galleryStyle.css';
+
 
 export default function Gallery() {
     const [selectedCategory, setSelectedCategory] = useState('all');
@@ -9,63 +10,63 @@ export default function Gallery() {
         {
             id: 1,
             category: 'residential',
-            image: 'https://images.unsplash.com/photo-1581578021517-ba0feb3d0c38?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YWlyJTIwZHVjdCUyMGNsZWFuaW5nfGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60',
+            image: "/images/gallery_1.jpeg",
             title: 'Residential Duct Cleaning',
             description: 'Complete cleaning of home ventilation systems'
         },
         {
             id: 2,
             category: 'commercial',
-            image: 'https://images.unsplash.com/photo-1632773689822-3c30d5051f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8Y29tbWVyY2lhbCUyMGh2YWN8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=600&q=60',
+            image: "/images/gallery_2.jpeg",
             title: 'Commercial HVAC Cleaning',
             description: 'Office building duct maintenance'
         },
         {
             id: 3,
             category: 'dryer',
-            image: 'https://images.unsplash.com/photo-1632882001413-801bf290a87c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGRyeWVyJTIwdmVudHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=600&q=60',
+            image: "/images/gallery_3.jpeg",
             title: 'Dryer Vent Cleaning',
             description: 'Preventing fire hazards through proper maintenance'
         },
         {
             id: 4,
             category: 'residential',
-            image: 'https://images.unsplash.com/photo-1581578021517-ba0feb3d0c38?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YWlyJTIwZHVjdCUyMGNsZWFuaW5nfGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60',
+            image: "/images/gallery_4.jpeg",
             title: 'Before & After Cleaning',
             description: 'Dramatic difference in air quality'
         },
         {
             id: 5,
             category: 'commercial',
-            image: 'https://images.unsplash.com/photo-1632773689822-3c30d5051f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8Y29tbWVyY2lhbCUyMGh2YWN8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=600&q=60',
+            image: "/images/gallery_5.jpeg",
             title: 'Restaurant Ventilation',
             description: 'Commercial kitchen duct cleaning'
         },
         {
             id: 6,
             category: 'hvac',
-            image: 'https://images.unsplash.com/photo-1616604744535-5b9e9785f77a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fGh2YWMlMjBzeXN0ZW18ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=600&q=60',
+            image: "/images/gallery_6.jpeg",
             title: 'HVAC System Maintenance',
             description: 'Complete system cleaning and optimization'
         },
         {
             id: 7,
             category: 'residential',
-            image: 'https://images.unsplash.com/photo-1581578021517-ba0feb3d0c38?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YWlyJTIwZHVjdCUyMGNsZWFuaW5nfGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60',
+            image: "/images/gallery_7.jpeg",
             title: 'Family Home Service',
             description: 'Improving air quality for families'
         },
         {
             id: 8,
             category: 'dryer',
-            image: 'https://images.unsplash.com/photo-1632882001413-801bf290a87c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGRyeWVyJTIwdmVudHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=600&q=60',
+            image: "/images/gallery_8.jpeg",
             title: 'Lint Removal',
             description: 'Thorough lint extraction process'
         },
         {
             id: 9,
             category: 'hvac',
-            image: 'https://images.unsplash.com/photo-1616604744535-5b9e9785f77a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fGh2YWMlMjBzeXN0ZW18ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=600&q=60',
+            image: "/images/gallery_9.jpeg",
             title: 'System Optimization',
             description: 'Improving HVAC efficiency'
         }

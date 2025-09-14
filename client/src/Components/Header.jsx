@@ -8,13 +8,13 @@ export default function Header() {
           <div className="col-md-6">
             <div className="topbar-contact">
               <i className="fas fa-phone-alt"></i>
-              <span>Emergency Service: <strong>0019-0022002</strong></span>
+              <span>Emergency Service: <strong>(463) 227-5480</strong></span>
             </div>
           </div>
           <div className="col-md-6">
             <div className="topbar-timing">
               <i className="fas fa-clock"></i>
-              <span>Business Hours: <strong>Mon-Sat: 8:00AM - 8:00PM</strong></span>
+              <span>Business Hours: <strong>Mon-Sun: 7:00AM - 7:00PM / Sat-Off</strong></span>
             </div>
           </div>
         </div>

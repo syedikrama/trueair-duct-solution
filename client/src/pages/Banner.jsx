@@ -2,8 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import "../styles/homeStyle.css"
 import banner from '../assets/images/banner_1.jpeg'
-import banner_2 from '../assets/images/banner_2.jpeg'
-
+import banner_3 from '../assets/images/banner_3.jpeg'
 
 export default function Banner() {
   return (
@@ -12,10 +11,9 @@ export default function Banner() {
       {/* Background Image with Overlay */}
       <div className="banner-image">
         <img
-          // src="https://www.usaairduct.com/wp-content/uploads/go-x/u/79a0f61b-f3fa-4736-b75f-683f3316f656/image.jpg"
-          src={banner_2}
+          src={banner_3}
           alt="Professional Air Duct Cleaning Services"
-          className="img-fluid w-100"
+          className="img-fluid w-100 banner-img"
         />
         
         {/* Dark Overlay */}
@@ -62,6 +60,9 @@ export default function Banner() {
         </div>
       </div>
     </div>
+
+    <style jsx>{`
+    `}</style>
     </div>
   )
 }

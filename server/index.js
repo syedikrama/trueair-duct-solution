@@ -1,6 +1,6 @@
 require("dotenv").config();
 let express = require("express");
-let {port} = require("./src/config/env");
+let { port } = require("./src/config/env");
 let db = require("./src/config/db");
 const bookingRoutes = require("./src/routes/bookingRoutes");
 const authRoutes = require("./src/routes/authRoutes");
@@ -21,9 +21,12 @@ trueAir.use("/api/services", serviceRoutes);
 
 
 db().then(() => {
-    trueAir.listen(port, () => {
-      console.log(`Server running at http://localhost:${port}`);
-    });
-  }).catch((e)=>{
-    console.log(e)
-  })
+  trueAir.listen(port, () => {
+    console.log(`Server running at http://localhost:${port}`);
+  });
+}).catch((e) => {
+  console.log(e)
+})
+
+
+// module.exports = db;

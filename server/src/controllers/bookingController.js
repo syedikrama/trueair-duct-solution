@@ -1,4 +1,5 @@
 // controllers/bookingController.js
+const moment = require("moment-timezone");
 
 const Booking = require("../models/Booking");
 const { sendEmail } = require("../services/emailService");
@@ -20,6 +21,7 @@ const bookingController = {
         serviceType,
         cleaningDate,
         cleaningTime,
+         timeZone,
         comment,
         estimatedPrice,
         originalPrice,
@@ -27,7 +29,7 @@ const bookingController = {
         unitCount
       } = req.body;
 
-      if (!firstName || !lastName || !email || !contactNumber || !homeAddress || !city || !state || !zip || !furnaceOrUnit || !serviceType || !cleaningDate || !cleaningTime) {
+      if (!firstName || !lastName || !email || !contactNumber || !homeAddress || !city || !state || !zip || !furnaceOrUnit || !serviceType || !cleaningDate || !cleaningTime || !timeZone) {
         return res.status(400).json({ message: "Please provide all required fields." });
       }
 
@@ -45,6 +47,7 @@ const bookingController = {
         serviceType,
         cleaningDate,
         cleaningTime,
+        timeZone,
         comment,
         estimatedPrice: estimatedPrice || 0,
         originalPrice: originalPrice || 0,
@@ -98,18 +101,42 @@ const bookingController = {
       }
 
       // ✅ If confirmed, send email to customer
-      if (status === "confirmed") {
-        await sendEmail({
-          to: updatedBooking.email,
-          subject: "Your Booking is Confirmed - TrueAir Duct Solution",
-          text: `Hello ${updatedBooking.firstName}, your booking for ${updatedBooking.serviceType} on ${updatedBooking.cleaningDate} at ${updatedBooking.cleaningTime} has been confirmed.`,
-          html: `<h2>Booking Confirmed ✅</h2>
-         <p>Hello <strong>${updatedBooking.firstName}</strong>,</p>
-         <p>Your booking for <strong>${updatedBooking.serviceType}</strong> on <strong>${updatedBooking.cleaningDate}</strong> at <strong>${updatedBooking.cleaningTime}</strong> has been confirmed.</p>
-         <p>Thank you for choosing <strong>TrueAir Duct Solution</strong>! We look forward to serving you.</p>`
-        });
+      // if (status === "confirmed") {
+      //   await sendEmail({
+      //     to: updatedBooking.email,
+      //     subject: "Your Booking is Confirmed - TrueAir Duct Solution",
+      //     text: `Hello ${updatedBooking.firstName}, your booking for ${updatedBooking.serviceType} on ${updatedBooking.cleaningDate} at ${updatedBooking.cleaningTime} has been confirmed.`,
+      //     html: `<h2>Booking Confirmed ✅</h2>
+      //    <p>Hello <strong>${updatedBooking.firstName}</strong>,</p>
+      //    <p>Your booking for <strong>${updatedBooking.serviceType}</strong> on <strong>${updatedBooking.cleaningDate}</strong> at <strong>${updatedBooking.cleaningTime}</strong> has been confirmed.</p>
+      //    <p>Thank you for choosing <strong>TrueAir Duct Solution</strong>! We look forward to serving you.</p>`
+      //   });
 
-      }
+      // }
+
+
+
+if (status === "confirmed") {
+  const customerTime = moment
+    .tz(
+      `${updatedBooking.cleaningDate.toISOString().split("T")[0]} ${updatedBooking.cleaningTime}`,
+      "YYYY-MM-DD HH:mm",
+      updatedBooking.timeZone
+    )
+    .format("MMMM Do YYYY, h:mm A z");
+
+  await sendEmail({
+    to: updatedBooking.email,
+    subject: "Your Booking is Confirmed - TrueAir Duct Solution",
+    html: `<h2>Booking Confirmed ✅</h2>
+      <p>Hello <strong>${updatedBooking.firstName}</strong>,</p>
+      <p>Your booking for <strong>${updatedBooking.serviceType}</strong> on <strong>${customerTime}</strong> has been confirmed.</p>
+      <p>Thank you for choosing <strong>TrueAir Duct Solution</strong>!</p>`
+  });
+}
+
+
+
 
       res.status(200).json({
         message: "Booking updated successfully.",
