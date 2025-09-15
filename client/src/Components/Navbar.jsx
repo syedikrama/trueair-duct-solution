@@ -89,7 +89,7 @@ export default function Navbar() {
             </ul>
 
             {/* Search Box */}
-            <form className="d-flex ms-lg-3">
+            {/* <form className="d-flex ms-lg-3">
               <input
                 className="form-control me-2 search-input"
                 type="search"
@@ -98,7 +98,7 @@ export default function Navbar() {
               <button className="btn btn-search" type="submit">
                 <i className="fas fa-search"></i>
               </button>
-            </form>
+            </form> */}
           </div>
         </div>
 

@@ -14,7 +14,7 @@ export default function Header() {
           <div className="col-md-6">
             <div className="topbar-timing">
               <i className="fas fa-clock"></i>
-              <span>Business Hours: <strong>Mon-Sun: 7:00AM - 7:00PM / Sat-Off</strong></span>
+              <span>Business Hours: <strong>Mon-Sun: 7:00AM - 7:00PM / Sat-close</strong></span>
             </div>
           </div>
         </div>

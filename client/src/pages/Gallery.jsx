@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import '../styles/galleryStyle.css';
-
+import { Link } from 'react-router-dom';
 
 export default function Gallery() {
     let [selectedCategory, setSelectedCategory] = useState('all');
+    const [selectedImage, setSelectedImage] = useState(null);
+    const [showModal, setShowModal] = useState(false);
 
     // Sample gallery data
     let galleryItems = [
@@ -84,6 +86,20 @@ export default function Gallery() {
         ? galleryItems
         : galleryItems.filter(item => item.category === selectedCategory);
 
+    const openModal = (item) => {
+        setSelectedImage(item);
+        setShowModal(true);
+        // Prevent body scrolling when modal is open
+        document.body.style.overflow = 'hidden';
+    };
+
+    const closeModal = () => {
+        setShowModal(false);
+        setSelectedImage(null);
+        // Re-enable body scrolling
+        document.body.style.overflow = 'auto';
+    };
+
     return (
         <div className="gallery-page">
             {/* Hero Section */}
@@ -138,7 +154,10 @@ export default function Gallery() {
                                             <div className="gallery-content">
                                                 <h5 className="gallery-item-title">{item.title}</h5>
                                                 <p className="gallery-item-description">{item.description}</p>
-                                                <button className="view-btn">
+                                                <button 
+                                                    className="view-btn"
+                                                    onClick={() => openModal(item)}
+                                                >
                                                     <i className="fas fa-search-plus"></i> View Larger
                                                 </button>
                                             </div>
@@ -159,13 +178,39 @@ export default function Gallery() {
                             <h2>Ready to Improve Your Air Quality?</h2>
                             <p>Schedule your air duct cleaning service today and breathe easier tomorrow</p>
                             <div className="cta-buttons">
-                                <button className="btn btn-primary">Get Free Estimate</button>
-                                <button className="btn btn-outline">View All Services</button>
+                                <Link to={`/contact`}>
+                                    <button className="btn btn-primary">Get Free Estimate</button>
+                                </Link>
+                                <Link to={`/services`}>
+                                    <button className="btn btn-outline">View All Services</button>
+                                </Link>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
-             </div>
-  );
+
+            {/* Image Modal */}
+            {showModal && selectedImage && (
+                <div className="modal-overlay" onClick={closeModal}>
+                    <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+                        <button className="modal-close" onClick={closeModal}>
+                            <i className="fas fa-times"></i>
+                        </button>
+                        <div className="modal-image-container">
+                            <img 
+                                src={selectedImage.image} 
+                                alt={selectedImage.title} 
+                                className="modal-image"
+                            />
+                        </div>
+                        <div className="modal-details">
+                            <h3>{selectedImage.title}</h3>
+                            <p>{selectedImage.description}</p>
+                        </div>
+                    </div>
+                </div>
+            )}
+        </div>
+    );
 }

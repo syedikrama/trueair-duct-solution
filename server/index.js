@@ -5,6 +5,7 @@ let db = require("./src/config/db");
 let bookingRoutes = require("./src/routes/bookingRoutes");
 let authRoutes = require("./src/routes/authRoutes");
 let serviceRoutes = require("./src/routes/serviceRoutes");
+let contactRoutes = require("./src/routes/contactRoutes");
 
 
 let trueAir = express();
@@ -16,7 +17,7 @@ trueAir.use(cors());
 trueAir.use("/api/bookings", bookingRoutes);
 trueAir.use("/api/auth", authRoutes);
 trueAir.use("/api/services", serviceRoutes);
-
+trueAir.use("/api/contact", contactRoutes);
 
 
 

@@ -10,48 +10,54 @@ import Services from './pages/Services';
 import About from './pages/About';
 import Footer from './Components/Footer';
 import Gallery from './pages/Gallery';
+import Contact from './pages/Contact';
 import ServiceDetails from './pages/ServiceDetails';
 import BookingPage from './pages/BookingPage';
 import ThankYou from './pages/ThankYou';
 import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
 import ProtectedRoute from './Components/ProtectedRoute';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsOfService from './pages/TermsOfService';
 
-  function App() {
-    return (
-      <BrowserRouter>
-        <Header />
-        <Navbar />
-        <div className="App">
-          <Routes>
-            {/* <Route path='/n' element={<Navbar/>}/> */}
-            <Route path='/' element={<Home />} />
-            <Route path="/services" element={<Services />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/gallery" element={<Gallery />} />
-            <Route path="/services/:serviceId" element={<ServiceDetails />} />
-            <Route path="/booking/:serviceId?" element={<BookingPage />} />
-            <Route path="/thank-you" element={<ThankYou />} />
-            {/* <Route path="/dashboard" element={<Dashboard />} /> */}
-            <Route path="/login" element={<Login />} />
-<Route
-  path="/dashboard"
-  element={
-    <ProtectedRoute>
-      <Dashboard />
-    </ProtectedRoute>
-  }
-/>
-<Route path="/" element={<Navigate to="/login" />} />
+function App() {
+  return (
+    <BrowserRouter>
+      <Header />
+      <Navbar />
+      <div className="App">
+        <Routes>
+          {/* <Route path='/n' element={<Navbar/>}/> */}
+          <Route path='/' element={<Home />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/gallery" element={<Gallery />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/privacy" element={<PrivacyPolicy />} />
+          <Route path="/terms" element={<TermsOfService />} />
+          <Route path="/services/:serviceId" element={<ServiceDetails />} />
+          <Route path="/booking/:serviceId?" element={<BookingPage />} />
+          <Route path="/thank-you" element={<ThankYou />} />
+          {/* <Route path="/dashboard" element={<Dashboard />} /> */}
+          <Route path="/login" element={<Login />} />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/" element={<Navigate to="/login" />} />
 
 
 
 
-          </Routes>
-        </div>
-        <Footer />
-      </BrowserRouter>
-    );
-  }
+        </Routes>
+      </div>
+      <Footer />
+    </BrowserRouter>
+  );
+}
 
 export default App;
