@@ -1,8 +1,34 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../styles/galleryStyle.css';
 import { Link } from 'react-router-dom';
 
 export default function Gallery() {
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
+  // Check scroll position to show/hide the button
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 300) {
+        setShowScrollTop(true);
+      } else {
+        setShowScrollTop(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Scroll to top function
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
+
+
+
     let [selectedCategory, setSelectedCategory] = useState('all');
     const [selectedImage, setSelectedImage] = useState(null);
     const [showModal, setShowModal] = useState(false);
@@ -211,6 +237,17 @@ export default function Gallery() {
                     </div>
                 </div>
             )}
+
+             {/* Scroll to Top Button */}
+      {showScrollTop && (
+        <button 
+          className="scroll-top-btn"
+          onClick={scrollToTop}
+          aria-label="Scroll to top"
+        >
+          <i className="fas fa-arrow-up"></i>
+        </button>
+      )}
         </div>
     );
 }

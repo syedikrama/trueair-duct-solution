@@ -1,7 +1,31 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import '../styles/aboutStyle.css'
 
 export default function About() {
+    const [showScrollTop, setShowScrollTop] = useState(false);
+  
+    // Check scroll position to show/hide the button
+    useEffect(() => {
+      const handleScroll = () => {
+        if (window.scrollY > 300) {
+          setShowScrollTop(true);
+        } else {
+          setShowScrollTop(false);
+        }
+      };
+  
+      window.addEventListener('scroll', handleScroll);
+      return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+  
+    // Scroll to top function
+    const scrollToTop = () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    };
+  
   return (
     <div>
         <div className="about-page">
@@ -23,7 +47,7 @@ export default function About() {
             </div>
             <div className="col-lg-6">
               <img 
-                src="https://images.unsplash.com/photo-1581578021517-ba0feb3d0c38?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YWlyJTIwZHVjdCUyMGNsZWFuaW5nfGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60" 
+                src="/images/about_1.jpg" 
                 alt="About TrueAir Duct Solutions" 
                 className="img-fluid hero-image"
               />
@@ -82,7 +106,7 @@ export default function About() {
           <div className="row">
             <div className="col-lg-6">
               <img 
-                src="https://images.unsplash.com/photo-1581578021517-ba0feb3d0c38?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YWlyJTIwZHVjdCUyMGNsZWFuaW5nfGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60" 
+                src="/images/about_2.jpg" 
                 alt="Our Story" 
                 className="img-fluid story-image"
               />
@@ -121,7 +145,7 @@ export default function About() {
       </section>
 
       {/* Team Section */}
-      <section className="team-section">
+      {/* <section className="team-section">
         <div className="container">
           <h2 className="section-title">Meet Our Leadership Team</h2>
           <div className="row">
@@ -169,7 +193,7 @@ export default function About() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Certifications Section */}
       <section className="certifications-section">
@@ -199,7 +223,18 @@ export default function About() {
           </div>
         </div>
       </section>
+       {/* Scroll to Top Button */}
+      {showScrollTop && (
+        <button 
+          className="scroll-top-btn"
+          onClick={scrollToTop}
+          aria-label="Scroll to top"
+        >
+          <i className="fas fa-arrow-up"></i>
+        </button>
+      )}
       </div>
     </div>
+
   )
 }

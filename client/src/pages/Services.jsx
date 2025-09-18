@@ -5,6 +5,32 @@ import axios from "axios";
 import "../styles/servicesStyle.css"; // Import the CSS file
 
 export default function Services() {
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
+  // Check scroll position to show/hide the button
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 300) {
+        setShowScrollTop(true);
+      } else {
+        setShowScrollTop(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Scroll to top function
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
+
+
+
   let [services, setServices] = useState([]);
   let [loading, setLoading] = useState(true);
 
@@ -73,6 +99,16 @@ export default function Services() {
           </div>
         </div>
       </div>
+       {/* Scroll to Top Button */}
+      {showScrollTop && (
+        <button 
+          className="scroll-top-btn"
+          onClick={scrollToTop}
+          aria-label="Scroll to top"
+        >
+          <i className="fas fa-arrow-up"></i>
+        </button>
+      )}
     </div>
   );
 }

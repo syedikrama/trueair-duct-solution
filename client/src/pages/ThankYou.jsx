@@ -36,7 +36,7 @@ let ThankYou = () => {
             </div>
             <div className="detail-item">
               <i className="fas fa-phone"></i>
-              <span>For immediate assistance, call us at <strong>0019-0022002</strong></span>
+              <span>For immediate assistance, call us at <strong>(463) 227-5480</strong></span>
             </div>
           </div>
 
@@ -44,7 +44,7 @@ let ThankYou = () => {
             <Link to="/" className="btn btn-primary">
               <i className="fas fa-home"></i> Back to Home
             </Link>
-            <Link to="/services" className="btn btn-outline">
+            <Link to={`/services`} className="btn btn-outline">
               <i className="fas fa-concierge-bell"></i> View Other Services
             </Link>
           </div>
@@ -52,8 +52,8 @@ let ThankYou = () => {
           <div className="emergency-contact">
             <h3>Need Immediate Help?</h3>
             <p>For urgent matters, contact us directly:</p>
-            <a href="tel:0019-0022002" className="emergency-number">
-              <i className="fas fa-phone-alt"></i> 0019-0022002
+            <a href="(463) 227-5480" className="emergency-number">
+              <i className="fas fa-phone-alt"></i> (463) 227-5480
             </a>
           </div>
         </div>

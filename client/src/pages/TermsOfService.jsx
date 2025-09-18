@@ -1,8 +1,32 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 // import './TermsOfService.css'; // Create this CSS file
 
 export default function TermsOfService() {
+    const [showScrollTop, setShowScrollTop] = useState(false);
+  
+    // Check scroll position to show/hide the button
+    useEffect(() => {
+      const handleScroll = () => {
+        if (window.scrollY > 300) {
+          setShowScrollTop(true);
+        } else {
+          setShowScrollTop(false);
+        }
+      };
+  
+      window.addEventListener('scroll', handleScroll);
+      return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+  
+    // Scroll to top function
+    const scrollToTop = () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    };
+  
   return (
     <div className="terms-of-service-page">
       <div className="container">
@@ -117,6 +141,16 @@ export default function TermsOfService() {
           </div>
         </div>
       </div>
+       {/* Scroll to Top Button */}
+      {showScrollTop && (
+        <button 
+          className="scroll-top-btn"
+          onClick={scrollToTop}
+          aria-label="Scroll to top"
+        >
+          <i className="fas fa-arrow-up"></i>
+        </button>
+      )}
 
       {/* Inline CSS */}
       <style jsx>{`
@@ -267,6 +301,48 @@ export default function TermsOfService() {
           
           .breadcrumb-nav {
             font-size: 0.8rem;
+          }
+        }
+
+
+
+
+        
+/* buttom to top button */
+
+            .scroll-top-btn {
+          position: fixed;
+          bottom: 30px;
+          right: 30px;
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          background: linear-gradient(135deg, #2c6b9e 0%, #1a4a75 100%);
+          color: white;
+          border: none;
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 18px;
+          transition: all 0.3s ease;
+          z-index: 1000;
+        }
+        
+        .scroll-top-btn:hover {
+          background: linear-gradient(135deg, #ff6b00 0%, #e55e00 100%);
+          transform: translateY(-3px);
+          box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        @media (max-width: 768px) {
+          .scroll-top-btn {
+            bottom: 20px;
+            right: 20px;
+            width: 45px;
+            height: 45px;
+            font-size: 16px;
           }
         }
       `}</style>

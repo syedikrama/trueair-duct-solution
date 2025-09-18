@@ -5,6 +5,31 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
 export default function BookingPage() {
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
+  // Check scroll position to show/hide the button
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 300) {
+        setShowScrollTop(true);
+      } else {
+        setShowScrollTop(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Scroll to top function
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
+
+
   let { serviceId } = useParams();
   let navigate = useNavigate();
   let [formData, setFormData] = useState({
@@ -47,9 +72,9 @@ export default function BookingPage() {
   // Discount structure: { unitCount: discountPercentage }
   let discountTiers = {
     1: 0,    // No discount for 1 unit
-    2: 25,   // 25% discount for 2 units
-    3: 30,   // 30% discount for 3 units
-    4: 35,   // 35% discount for 4+ units
+    2: 10,   // 25% discount for 2 units
+    3: 10,   // 30% discount for 3 units
+    4: 10,   // 35% discount for 4+ units
   };
 
   let timeSlots = [
@@ -545,6 +570,18 @@ export default function BookingPage() {
           </div>
         </div>
       </div>
+
+      
+      {/* Scroll to Top Button */}
+      {showScrollTop && (
+        <button 
+          className="scroll-top-btn"
+          onClick={scrollToTop}
+          aria-label="Scroll to top"
+        >
+          <i className="fas fa-arrow-up"></i>
+        </button>
+      )}
 
       <style jsx>{`
         .price-display-card {

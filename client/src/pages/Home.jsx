@@ -41,7 +41,7 @@ export default function Home() {
             <div className="col-lg-6 mb-4 mb-lg-0">
               <div className="image-container position-relative">
                 <img
-                  src="https://firstcallnc.com/wp-content/uploads/2019/12/Air-duct-cleaning-1024x587-1024x585.jpg"
+                  src="/images/home_1.jpg"
                   alt="Professional Air Duct Cleaning"
                   className="img-fluid rounded shadow"
                 />
@@ -166,10 +166,6 @@ export default function Home() {
           <i className="fas fa-arrow-up"></i>
         </button>
       )}
-
-      <style jsx>{`
-
-      `}</style>
     </div>
   )
 }

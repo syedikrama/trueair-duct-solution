@@ -87,6 +87,11 @@ export default function Navbar() {
                   <i className="fas fa-phone me-1"></i> Contact
                 </Link>
               </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/booking">
+                  <i className="fas fa-book me-1"></i> Booking
+                </Link>
+              </li>
             </ul>
 
             {/* Search Box */}

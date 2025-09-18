@@ -5,6 +5,32 @@ import "../styles/serviceDetailsStyle.css";
 // import image from '../assets/images/service_1';
 
 export default function ServiceDetails() {
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
+  // Check scroll position to show/hide the button
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 300) {
+        setShowScrollTop(true);
+      } else {
+        setShowScrollTop(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Scroll to top function
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
+
+
+
   let { serviceId } = useParams();
   let [service, setService] = useState(null);
   let [loading, setLoading] = useState(true);
@@ -200,6 +226,16 @@ export default function ServiceDetails() {
           </div>
         </div>
       </section>
+       {/* Scroll to Top Button */}
+      {showScrollTop && (
+        <button 
+          className="scroll-top-btn"
+          onClick={scrollToTop}
+          aria-label="Scroll to top"
+        >
+          <i className="fas fa-arrow-up"></i>
+        </button>
+      )}
     </div>
   );
 }
