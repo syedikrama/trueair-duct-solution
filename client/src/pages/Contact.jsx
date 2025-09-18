@@ -80,7 +80,7 @@ export default function Contact() {
                     </div>
                     <div className="contact-text">
                       <h5>Phone</h5>
-                      <p>0019-0022002</p>
+                      <p>(463) 227-5480</p>
                     </div>
                   </div>
                   
@@ -90,7 +90,7 @@ export default function Contact() {
                     </div>
                     <div className="contact-text">
                       <h5>Email</h5>
-                      <p>info@trueairducts.com</p>
+                      <p>trueairduct881@gmail.com.com</p>
                     </div>
                   </div>
                   
@@ -100,7 +100,7 @@ export default function Contact() {
                     </div>
                     <div className="contact-text">
                       <h5>Address</h5>
-                      <p>123 Clean Air Street, City, State 12345</p>
+                      <p>Charlotte, North Carolina, 28202</p>
                     </div>
                   </div>
                   
@@ -110,7 +110,7 @@ export default function Contact() {
                     </div>
                     <div className="contact-text">
                       <h5>Business Hours</h5>
-                      <p>Mon-Sat: 8:00 AM - 8:00 PM</p>
+                      <p>Mon-Sun: 7:00 AM - 7:00 PM Sat-Closed</p>
                     </div>
                   </div>
                 </div>
@@ -164,7 +164,7 @@ export default function Contact() {
                       <option value="">Select Service</option>
                       <option value="Residential Cleaning">Air Duct Cleaning</option>
                       <option value="Residential Cleaning">Supply Vent Cleaning</option>
-                      <option value="Residential Cleaning">Negative Pressure Machine</option>
+                      <option value="Residential Cleaning">Dryer Vent Cleaning</option>
                       <option value="Residential Cleaning">Brush Cleaning</option>
                       <option value="Commercial Cleaning">Deep Cleaning</option>
                       <option value="Dryer Vent Cleaning">Chimney Cleaning</option>

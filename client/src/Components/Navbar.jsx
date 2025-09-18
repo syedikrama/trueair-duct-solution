@@ -18,11 +18,12 @@ export default function Navbar() {
       <nav className="navbar navbar-expand-lg navbar-dark custom-navbar">
         <div className="container">
           <Link className="navbar-brand d-flex align-items-center" to="/">
-            <img
+        <i class="fa-regular fa-house"></i>
+            {/* <img
               src={"/images/logo.png"}
               alt="TrueAir Duct Solutions"
               className="navbar-logo"
-            />
+            /> */}
             <span className="brand-text">TrueAir Duct Solutions</span>
           </Link>
 

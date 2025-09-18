@@ -39,7 +39,7 @@ export default function Footer() {
                     Professional air duct cleaning services for healthier indoor air quality
                     and improved HVAC system efficiency. Serving homes and businesses since 2010.
                   </p>
-                  <div className="footer-social">
+                  {/* <div className="footer-social">
                     <a href="#" className="social-link">
                       <i className="fab fa-facebook-f"></i>
                     </a>
@@ -52,7 +52,7 @@ export default function Footer() {
                     <a href="#" className="social-link">
                       <i className="fab fa-linkedin-in"></i>
                     </a>
-                  </div>
+                  </div> */}
                 </div>
               </div>
 
@@ -137,7 +137,7 @@ export default function Footer() {
                 <div className="footer-bottom-links">
                   <Link to="/privacy">Privacy Policy</Link>
                   <Link to="/terms">Terms of Service</Link>
-                  <Link to="/sitemap">Sitemap</Link>
+                  {/* <Link to="/sitemap">Sitemap</Link> */}
                 </div>
               </div>
             </div>

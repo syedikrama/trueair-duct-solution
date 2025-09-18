@@ -53,8 +53,8 @@ export default function BookingPage() {
   };
 
   let timeSlots = [
-    '9:00 AM', '10:00 AM', '11:00 AM', '12:00 PM',
-    '1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM'
+    '7:00 AM','8:00 AM','9:00 AM', '10:00 AM', '11:00 AM', '12:00 PM',
+    '1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM','6:00 PM','7:00 PM'
   ];
 
   let states = [
@@ -530,15 +530,15 @@ export default function BookingPage() {
               <div className="contact-items">
                 <div className="contact-item">
                   <i className="fas fa-phone"></i>
-                  <span>Call us: 0019-0022002</span>
+                  <span>Call us: (463) 227-5480</span>
                 </div>
                 <div className="contact-item">
                   <i className="fas fa-envelope"></i>
-                  <span>Email: info@trueairducts.com</span>
+                  <span>Email: trueairduct881@gmail.com</span>
                 </div>
                 <div className="contact-item">
                   <i className="fas fa-clock"></i>
-                  <span>Available: Mon-Fri, 8:00 AM - 8:00 PM</span>
+                  <span>Available: Mon-Sun, 7:00 AM - 7:00 PM Sat-Closed</span>
                 </div>
               </div>
             </div>
