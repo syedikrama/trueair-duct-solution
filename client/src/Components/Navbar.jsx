@@ -8,7 +8,7 @@ export default function Navbar() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3001/api/services")
+      .get("/api/services")
       .then((res) => setServices(res.data))
       .catch((err) => console.error("Error fetching services:", err));
   }, []);

@@ -13,7 +13,7 @@ export default function Footer() {
 
   const fetchServices = async () => {
     try {
-      const response = await axios.get('http://localhost:3001/api/services');
+      const response = await axios.get('/api/services');
       setServices(response.data);
     } catch (error) {
       console.error('Error fetching services:', error);
