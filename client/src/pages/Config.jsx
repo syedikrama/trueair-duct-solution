@@ -3,7 +3,7 @@ import axios from "axios";
 
 // ek axios instance banao
 let api = axios.create({
-  baseURL: "http://localhost:3001/api", // apna backend base url
+  baseURL: "/api", // apna backend base url
 });
 
 // har request ke sath token bhejne ke liye interceptor

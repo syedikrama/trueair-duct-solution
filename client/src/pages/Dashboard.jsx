@@ -33,7 +33,7 @@ export default function Dashboard() {
 
   // Socket.io connection for real-time updates
   useEffect(() => {
-    let socket = io("http://localhost:3001");
+    let socket = io("");
     socket.on("newBooking", (booking) => {
       setAllBookings(prev => [booking, ...prev]);
       setRecentBookings(prev => [booking, ...prev].slice(0, 5));
@@ -45,7 +45,7 @@ export default function Dashboard() {
   useEffect(() => {
     let fetchDashboardData = async () => {
       try {
-        let bookingsRes = await axios.get("http://localhost:3001/api/bookings");
+        let bookingsRes = await axios.get("/api/bookings");
         setAllBookings(bookingsRes.data);
         setRecentBookings(bookingsRes.data.slice(0, 5));
         updateStats(bookingsRes.data);
@@ -68,7 +68,7 @@ export default function Dashboard() {
         setCustomers(uniqueCustomers);
 
         // ✅ Services fetch
-        let servicesRes = await axios.get("http://localhost:3001/api/services");
+        let servicesRes = await axios.get("/api/services");
         setServices(servicesRes.data);
 
         setLoading(false);
@@ -133,7 +133,7 @@ export default function Dashboard() {
   let handleDeleteService = async (id) => {
     if (window.confirm("Are you sure you want to delete this service?")) {
       try {
-        await axios.delete(`http://localhost:3001/api/services/${id}`);
+        await axios.delete(`/api/services/${id}`);
         setServices(prev => prev.filter(s => s._id !== id));
       } catch (error) {
         console.error("Delete failed:", error);
@@ -146,7 +146,7 @@ export default function Dashboard() {
   let handleDeleteBooking = async (id) => {
     if (window.confirm("Are you sure you want to delete this booking?")) {
       try {
-        await axios.delete(`http://localhost:3001/api/bookings/${id}`);
+        await axios.delete(`/api/bookings/${id}`);
         let updated = allBookings.filter(b => b._id !== id);
         setAllBookings(updated);
         setRecentBookings(updated.slice(0, 5));
@@ -160,7 +160,7 @@ export default function Dashboard() {
 
   let handleUpdateStatus = async (id, status) => {
     try {
-      let res = await axios.put(`http://localhost:3001/api/bookings/${id}/status`, { status });
+      let res = await axios.put(`/api/bookings/${id}/status`, { status });
       let updatedBookings = allBookings.map(b => b._id === id ? res.data.data : b);
       setAllBookings(updatedBookings);
       setRecentBookings(updatedBookings.slice(0, 5));
