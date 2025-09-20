@@ -98,6 +98,7 @@
           color: #2c6b9e;
           margin-bottom: 1rem;
           font-size: 1.5rem;
+          margin-top: 5.5rem;
         }
         
         .service-description {
@@ -164,3 +165,38 @@
             margin-bottom: 2rem;
           }
         }
+
+        @media (max-width: 768px) {
+  .section-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+  }
+  
+  .section-header > * {
+    width: 100%;
+  }
+  
+  .section-subtitle {
+    order: 1;
+    font-size: 14px;
+    margin-bottom: 0;
+  }
+  
+  .section-title {
+    order: 2;
+    font-size: 24px;
+    margin: 0;
+  }
+  
+  .section-description {
+    order: 3;
+    font-size: 16px;
+    line-height: 1.5;
+    margin-top: 0;
+  }
+
+      
+}

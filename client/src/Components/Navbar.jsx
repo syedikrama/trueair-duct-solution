@@ -19,11 +19,6 @@ export default function Navbar() {
         <div className="container">
           <Link className="navbar-brand d-flex align-items-center" to="/">
         <i class="fa-regular fa-house"></i>
-            {/* <img
-              src={"/images/logo.png"}
-              alt="TrueAir Duct Solutions"
-              className="navbar-logo"
-            /> */}
             <span className="brand-text">TrueAir Duct Solutions</span>
           </Link>
 

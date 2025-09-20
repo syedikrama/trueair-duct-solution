@@ -185,6 +185,12 @@
             gap: 0.5rem;
             text-align: center;
           }
+          .footer-title {
+            text-align: center;
+          }
+          .footer-links {
+            text-align: center;
+          }
         }
 
 

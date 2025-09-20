@@ -150,6 +150,9 @@ export default function Home() {
                 <Link to={`/services`}>
                   <button className="btn btn-outline">View All Services</button>
                 </Link>
+                <Link to={`/booking`}>
+                  <button className="btn btn-primary">Book Service Now</button>
+                </Link>
               </div>
             </div>
           </div>

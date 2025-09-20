@@ -11,7 +11,9 @@ export default function ServiceHighlights() {
       try {
         let res = await axios.get("http://localhost:3001/api/services");
         // Sirf 3 services hi show karni hain highlights me
-        setServices(res.data.slice(0, 3));
+        // setServices(res.data.slice(3, 6));
+        setServices([res.data[1], res.data[5], res.data[2]]);
+
       } catch (err) {
         console.error("Error fetching services:", err);
       }
@@ -36,10 +38,16 @@ export default function ServiceHighlights() {
         {/* Services Row */}
         <div className="row services-row">
           {services.map((service) => (
-            <div className="col-lg-4 col-md-6" key={service._id}>
+            <div className="col-lg-4 col-md-6 mb-4" key={service._id}>
               <div className="service-card">
-                <div className="service-icon">
-                  <i className="fas fa-tools"></i> {/* Default icon */}
+                <div className="service-icon ">
+                  {/* <i className="fas fa-tools"></i> Default icon */}
+                  <img
+                style={{ height: "180px", width: "auto", borderRadius: "360px" , marginTop: "4rem" }}
+                src={service.image}
+                // alt={service.title}
+                className="service-hero-image"
+              />
                 </div>
                 <h3 className="service-title">{service.title}</h3>
                 <p className="service-description">{service.description}</p>
@@ -52,8 +60,12 @@ export default function ServiceHighlights() {
                   ))}
                 </div>
 
-                <Link to={`/services/${service._id}`} className="service-btn">
+                <Link to={`/services/${service._id}`} className="service-btn mb-3">
                   Learn More <i className="fas fa-arrow-right"></i>
+                </Link>
+                <br />
+                <Link to={`/booking/${service._id}`} className="service-btn">
+                  Book Now <i className="fas fa-arrow-right"></i>
                 </Link>
               </div>
             </div>
