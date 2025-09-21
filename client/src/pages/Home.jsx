@@ -111,28 +111,7 @@ export default function Home() {
 
       <ServiceHighlights/>
 
-      <section className="py-5 bg-light">
-        <div className="container">
-          <div className="row text-center">
-            <div className="col-md-3">
-              <h2 className="fw-bold text-primary">1500+</h2>
-              <p>Happy Clients</p>
-            </div>
-            <div className="col-md-3">
-              <h2 className="fw-bold text-primary">12+</h2>
-              <p>Years Experience</p>
-            </div>
-            <div className="col-md-3">
-              <h2 className="fw-bold text-primary">5000+</h2>
-              <p>Projects Completed</p>
-            </div>
-            <div className="col-md-3">
-              <h2 className="fw-bold text-primary">24/7</h2>
-              <p>Emergency Service</p>
-            </div>
-          </div>
-        </div>
-      </section>
+      
 
       {/* <Contact/> */}
 
@@ -154,6 +133,30 @@ export default function Home() {
                   <button className="btn btn-primary">Book Service Now</button>
                 </Link>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <section className="py-5 bg-light">
+        <div className="container">
+          <div className="row text-center">
+            <div className="col-md-3">
+              <h2 className="fw-bold text-primary">1500+</h2>
+              <p>Happy Clients</p>
+            </div>
+            <div className="col-md-3">
+              <h2 className="fw-bold text-primary">12+</h2>
+              <p>Years Experience</p>
+            </div>
+            <div className="col-md-3">
+              <h2 className="fw-bold text-primary">5000+</h2>
+              <p>Projects Completed</p>
+            </div>
+            <div className="col-md-3">
+              <h2 className="fw-bold text-primary">24/7</h2>
+              <p>Emergency Service</p>
             </div>
           </div>
         </div>

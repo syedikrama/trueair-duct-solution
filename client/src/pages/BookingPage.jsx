@@ -41,7 +41,7 @@ export default function BookingPage() {
     city: '',
     state: '',
     zip: '',
-    furnaceOrUnit: '',
+    furnaceOrUnit: 'N/A',
     serviceType: serviceId || '',
     unitCount: 1,
     cleaningDate: '',
@@ -376,9 +376,9 @@ export default function BookingPage() {
                 <div className="form-section">
                   <h4>Service Details</h4>
                   <div className="row">
-                    <div className="col-md-6">
+                    {/* <div className="col-md-6">
                       <div className="form-group">
-                        {/* <label>Furnace / AC Unit Type *</label>
+                        <label>Furnace / AC Unit Type *</label>
                         <input
                           type="text"
                           name="furnaceOrUnit"
@@ -386,10 +386,10 @@ export default function BookingPage() {
                           onChange={handleChange}
                           required
                           placeholder="e.g., Furnace, AC Unit, etc."
-                        /> */}
+                        />
                       </div>
-                    </div>
-                    <div className="col-md-6">
+                    </div>*/}
+                    <div className="col-md-12">
                       <div className="form-group">
                         <label>Service Type *</label>
                         <select
@@ -409,7 +409,7 @@ export default function BookingPage() {
 
                   {/* Unit Count Selection */}
                   <div className="row">
-                    <div className="col-md-6">
+                    <div className="col-md-12">
                       <div className="form-group">
                         <label>Furnace / Unit *</label>
                         <select
