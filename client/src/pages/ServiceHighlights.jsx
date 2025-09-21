@@ -9,7 +9,7 @@ export default function ServiceHighlights() {
   useEffect(() => {
     let fetchServices = async () => {
       try {
-        let res = await axios.get("http://localhost:3001/api/services");
+        let res = await axios.get("/api/services");
         // Sirf 3 services hi show karni hain highlights me
         // setServices(res.data.slice(3, 6));
         setServices([ res.data[0], res.data[1], res.data[5], res.data[2]]);

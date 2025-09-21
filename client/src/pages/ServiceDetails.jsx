@@ -39,7 +39,7 @@ export default function ServiceDetails() {
     let fetchService = async () => {
       try {
         let res = await axios.get(
-          `http://localhost:3001/api/services/${serviceId}`
+          `/api/services/${serviceId}`
         );
         setService(res.data);
       } catch (err) {
