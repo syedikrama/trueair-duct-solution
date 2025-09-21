@@ -92,6 +92,12 @@ export default function Services() {
                     >
                       Read More
                     </Link>
+                    <Link
+                      to={`/booking/${service._id}`}
+                      className="service-btn mt-3"
+                    >
+                      Book Your Appointment
+                    </Link>
                   </div>
                 </div>
               </div>
