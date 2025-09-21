@@ -3,6 +3,7 @@ import './App.css';
 import "bootstrap/dist/css/bootstrap.min.css";
 import 'bootstrap/dist/js/bootstrap.bundle.js';
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
+import ScrollToTop from "./Components/ScrollToTop";
 import Header from './Components/Header';
 import Navbar from './Components/Navbar';
 import Home from './pages/Home';
@@ -23,6 +24,7 @@ import TermsOfService from './pages/TermsOfService';
 function App() {
   return (
     <BrowserRouter>
+    <ScrollToTop /> {/* Ye ensure karega har route change pe scroll top ho */}
       <Header />
       <Navbar />
       <div className="App">

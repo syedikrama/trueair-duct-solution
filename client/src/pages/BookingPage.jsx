@@ -242,7 +242,7 @@ export default function BookingPage() {
         <div className="row">
           <div className="col-lg-10 mx-auto">
             <div className="booking-header text-center">
-              <h1>Schedule Your Service</h1>
+              <h1>Book Your Appointment</h1>
               <p>Complete the form below to book your {services[serviceId] || 'cleaning'} service</p>
             </div>
 
@@ -378,7 +378,7 @@ export default function BookingPage() {
                   <div className="row">
                     <div className="col-md-6">
                       <div className="form-group">
-                        <label>Furnace / AC Unit Type *</label>
+                        {/* <label>Furnace / AC Unit Type *</label>
                         <input
                           type="text"
                           name="furnaceOrUnit"
@@ -386,7 +386,7 @@ export default function BookingPage() {
                           onChange={handleChange}
                           required
                           placeholder="e.g., Furnace, AC Unit, etc."
-                        />
+                        /> */}
                       </div>
                     </div>
                     <div className="col-md-6">
@@ -411,17 +411,20 @@ export default function BookingPage() {
                   <div className="row">
                     <div className="col-md-6">
                       <div className="form-group">
-                        <label>Number of Units *</label>
+                        <label>Furnace / Unit *</label>
                         <select
                           name="unitCount"
                           value={formData.unitCount}
                           onChange={handleChange}
                           required
                         >
-                          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(num => (
+                          {[1, 2, 3, 4, 5].map(num => (
                             <option key={num} value={num}>
-                              {num} Unit{num > 1 ? 's' : ''}
+                              {num} {num > 1}
                             </option>
+                            // <option key={num} value={num}>
+                            //   {num} Unit{num > 1 ? 's' : ''}
+                            // </option>
                           ))}
                         </select>
                         <small>Select the number of units needing service</small>

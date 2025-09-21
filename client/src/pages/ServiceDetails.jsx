@@ -39,7 +39,7 @@ export default function ServiceDetails() {
     let fetchService = async () => {
       try {
         let res = await axios.get(
-          `/api/services/${serviceId}`
+          `http://localhost:3001/api/services/${serviceId}`
         );
         setService(res.data);
       } catch (err) {
@@ -77,18 +77,72 @@ export default function ServiceDetails() {
   return (
     <div className="service-detail-page">
       {/* Breadcrumb */}
-      <nav className="breadcrumb-container">
+      {/* <nav className="breadcrumb-container">
         <div className="container">
           <Link to="/">Home</Link> /<Link to="/services">Services</Link> /
           <span>{service.title}</span>
         </div>
-      </nav>
+      </nav> */}
+
+
+      {/* Packages Section - Add this after Benefits section */}
+
+              <h1 className="package-price mt-3">{service.title}</h1>
+
+      {/* Packages Section */}
+      <section className="packages-section">
+        <div className="container">
+          {/* <h2 className="section-title">Our Cleaning Packages</h2> */}
+
+          {service.packages?.length > 0 ? (
+            service.packages.map((pkg, index) => (
+              <div key={index} className={`package-card ${pkg.isPopular ? "premium" : ""}`}>
+                <div className="package-header">
+                  <h3>{pkg.name}</h3>
+                  <div className="package-price">${pkg.price}</div>
+                </div>
+
+                <div className="package-includes">
+                  <h4>Package Includes:</h4>
+                  <ul className="package-features">
+                    {Array.isArray(pkg.features) && pkg.features.map((feature, idx) => (
+                      <li key={idx}>
+                        <i className="fas fa-check-circle"></i>
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+                   <div className="service-meta">
+                <div className="meta-item">
+                  <i className="fas fa-clock"></i>
+                  <span>{service.duration}</span>
+                </div>
+              </div>
+                </div>
+
+                <div className="package-cta">
+                  <Link
+                    to={`/booking/${serviceId}?package=${pkg.name.toLowerCase().replace(/\s+/g, "-")}`}
+                    className="btn btn-primary btn-package"
+                  >
+                    <i className="fas fa-shopping-cart"></i> Book {pkg.name}
+                  </Link>
+                </div>
+              </div>
+            ))
+          ) : (
+            <p>No packages available for this service.</p>
+          )}
+         
+        </div>
+      </section>
+
 
       {/* Hero Section */}
       <section className="service-hero">
         <div className="container">
           <div className="row align-items-center">
-            <div className="col-lg-6">
+            {/* <div className="col-lg-6">
               <h1 className="service-title">{service.title}</h1>
               <p className="service-description">{service.description}</p>
               <div className="service-meta">
@@ -105,21 +159,36 @@ export default function ServiceDetails() {
                   <span>{service.coverage}</span>
                 </div>
               </div>
-            <Link to={`/booking/${serviceId}`}
-            >
-              <button className="btn btn-primary btn-book">
-                <i className="fas fa-calendar-check"></i> Book This Service
-              </button>
+              <Link to={`/booking/${serviceId}`}
+              >
+                <button className="btn btn-primary btn-book mb-4">
+                  <i className="fas fa-calendar-check"></i> Book This Service
+                </button>
               </Link>
-            </div>
-            <div className="col-lg-6">
+            </div> */}
+
+            <div className="col-lg-12">
+  <img
+    style={{
+      width: "100%",          // container ke andar fit ho
+      height: "auto",         // aspect ratio maintain ho
+      borderRadius: "10px",
+      objectFit: "cover"      // optional: image crop na ho, nicely fit ho
+    }}
+    src={service.image}
+    alt={service.title}
+    className="service-hero-image"
+  />
+</div>
+
+            {/* <div className="col-lg-12">
               <img
                 style={{ height: "450px", width: "auto", borderRadius: "10px" }}
                 src={service.image}
                 alt={service.title}
                 className="service-hero-image"
               />
-            </div>
+            </div> */}
           </div>
         </div>
       </section>
@@ -143,49 +212,6 @@ export default function ServiceDetails() {
         </div>
       </section>
 
-      {/* Packages Section - Add this after Benefits section */}
-
-
-{/* Packages Section */}
-<section className="packages-section">
-<div className="container">
- <h2 className="section-title">Our Cleaning Packages</h2>
-
- {service.packages?.length > 0 ? (
-   service.packages.map((pkg, index) => (
-     <div key={index} className={`package-card ${pkg.isPopular ? "premium" : ""}`}>
-       <div className="package-header">
-         <h3>{pkg.name}</h3>
-         <div className="package-price">${pkg.price}</div>
-       </div>
-
-       <div className="package-includes">
-         <h4>Package Includes:</h4>
-         <ul className="package-features">
-           {Array.isArray(pkg.features) && pkg.features.map((feature, idx) => (
-             <li key={idx}>
-               <i className="fas fa-check-circle"></i>
-               {feature}
-             </li>
-           ))}
-         </ul>
-       </div>
-
-       <div className="package-cta">
-         <Link
-           to={`/booking/${serviceId}?package=${pkg.name.toLowerCase().replace(/\s+/g, "-")}`}
-           className="btn btn-primary btn-package"
-         >
-           <i className="fas fa-shopping-cart"></i> Book {pkg.name}
-         </Link>
-       </div>
-     </div>
-   ))
- ) : (
-   <p>No packages available for this service.</p>
- )}
-</div>
-</section>
 
       {/* Process */}
       <section className="process-section">
@@ -214,9 +240,9 @@ export default function ServiceDetails() {
             tomorrow
           </p>
           <div className="cta-buttons">
-            <button className="btn btn-primary btn-lg">
+            {/* <button className="btn btn-primary btn-lg">
               <i className="fas fa-phone"></i> Call Now: (463) 227-5480
-            </button>
+            </button> */}
             <Link
               to={`/booking/${serviceId}`}
               className="btn btn-primary btn-lg"
@@ -226,9 +252,9 @@ export default function ServiceDetails() {
           </div>
         </div>
       </section>
-       {/* Scroll to Top Button */}
+      {/* Scroll to Top Button */}
       {showScrollTop && (
-        <button 
+        <button
           className="scroll-top-btn"
           onClick={scrollToTop}
           aria-label="Scroll to top"

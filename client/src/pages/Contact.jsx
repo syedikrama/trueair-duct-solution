@@ -92,7 +92,7 @@ export default function Contact() {
       <section className="contact-section">
         <div className="container">
           <div className="row">
-            <div className="col-lg-6">
+            {/* <div className="col-lg-6">
               <div className="contact-info">
                 <h2>Get In Touch</h2>
                 <p className="contact-description">
@@ -141,9 +141,9 @@ export default function Contact() {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
             
-            <div className="col-lg-6">
+            <div className="col">
               <div className="contact-form-container">
                 <h3>Send us a Message</h3>
                 <form onSubmit={handleSubmit} className="contact-form">

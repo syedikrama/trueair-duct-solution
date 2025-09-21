@@ -1,6 +1,6 @@
-        .service-detail-page {
+        /* .service-detail-page {
           padding-top: 80px;
-        }
+        } */
         
         .breadcrumb-container {
           background: #f8f9fa;
@@ -73,7 +73,7 @@
         }
         
         .benefits-section {
-          padding: 4rem 0;
+          padding: 0 , 0 , 0 , 0;
           background: white;
         }
         
@@ -249,6 +249,12 @@
           }
         }
 
+        @media (max-width: 576px) {
+          .service-hero-image {
+            height: 250px; /* mobile ke liye chhoti height */
+            width: 100%;
+          }
+        }
 
 
 
@@ -268,12 +274,14 @@
 
 
 
+/* ---package section---- */
 
 
-        .packages-section {
-  padding: 4rem 0;
+ .packages-section {
+  padding: 2rem 0 0 0; /* top right bottom left */
   background: #f8f9fa;
 }
+
 
 .package-card {
   background: white;

@@ -9,10 +9,10 @@ export default function ServiceHighlights() {
   useEffect(() => {
     let fetchServices = async () => {
       try {
-        let res = await axios.get("/api/services");
+        let res = await axios.get("http://localhost:3001/api/services");
         // Sirf 3 services hi show karni hain highlights me
         // setServices(res.data.slice(3, 6));
-        setServices([res.data[1], res.data[5], res.data[2]]);
+        setServices([ res.data[0], res.data[1], res.data[5], res.data[2]]);
 
       } catch (err) {
         console.error("Error fetching services:", err);
@@ -61,7 +61,7 @@ export default function ServiceHighlights() {
                 </div>
 
                 <Link to={`/services/${service._id}`} className="service-btn mb-3">
-                  Learn More <i className="fas fa-arrow-right"></i>
+                  Read More <i className="fas fa-arrow-right"></i>
                 </Link>
                 <br />
                 <Link to={`/booking/${service._id}`} className="service-btn">

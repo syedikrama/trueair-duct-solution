@@ -134,7 +134,7 @@ export default function Home() {
         </div>
       </section>
 
-      <Contact/>
+      {/* <Contact/> */}
 
       {/* CTA Section */}
       <section className="gallery-cta">
@@ -144,9 +144,9 @@ export default function Home() {
               <h2>Ready to Improve Your Air Quality?</h2>
               <p>Schedule your air duct cleaning service today and breathe easier tomorrow</p>
               <div className="cta-buttons">
-                <Link to={`/contact`}>
+                {/* <Link to={`/contact`}>
                   <button className="btn btn-primary">Get Free Estimate</button>
-                </Link>
+                </Link> */}
                 <Link to={`/services`}>
                   <button className="btn btn-outline">View All Services</button>
                 </Link>

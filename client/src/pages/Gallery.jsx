@@ -143,7 +143,7 @@ export default function Gallery() {
             </section>
 
             {/* Filter Section */}
-            <section className="filter-section">
+            {/* <section className="filter-section">
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-12">
@@ -161,7 +161,7 @@ export default function Gallery() {
                         </div>
                     </div>
                 </div>
-            </section>
+            </section> */}
 
             {/* Gallery Grid */}
             <section className="gallery-grid-section">
@@ -173,13 +173,13 @@ export default function Gallery() {
                                     <div className="gallery-image-container">
                                         <img
                                             src={item.image}
-                                            alt={item.title}
+                                            // alt={item.title}
                                             className="gallery-image"
                                         />
                                         <div className="gallery-overlay">
                                             <div className="gallery-content">
-                                                <h5 className="gallery-item-title">{item.title}</h5>
-                                                <p className="gallery-item-description">{item.description}</p>
+                                                {/* <h5 className="gallery-item-title">{item.title}</h5> */}
+                                                {/* <p className="gallery-item-description">{item.description}</p> */}
                                                 <button 
                                                     className="view-btn"
                                                     onClick={() => openModal(item)}
@@ -226,13 +226,13 @@ export default function Gallery() {
                         <div className="modal-image-container">
                             <img 
                                 src={selectedImage.image} 
-                                alt={selectedImage.title} 
+                                // alt={selectedImage.title} 
                                 className="modal-image"
                             />
                         </div>
                         <div className="modal-details">
-                            <h3>{selectedImage.title}</h3>
-                            <p>{selectedImage.description}</p>
+                            {/* <h3>{selectedImage.title}</h3> */}
+                            {/* <p>{selectedImage.description}</p> */}
                         </div>
                     </div>
                 </div>

@@ -37,7 +37,7 @@ export default function Services() {
   useEffect(() => {
     let fetchServices = async () => {
       try {
-        let res = await axios.get("/api/services");
+        let res = await axios.get("http://localhost:3001/api/services");
         setServices(res.data);
       } catch (err) {
         console.error("Error fetching services:", err);
